@@ -2,21 +2,32 @@
 package model;
 
 public class Conta {
-    private double saldo;
-    private String titular;
-    private int numero_conta = (int) Math.random();
+    protected double saldo;
+    protected String titular;
+    protected int numero_conta = (int) Math.random();
 
     public Conta(double saldo, String titular) {
         this.saldo = saldo;
         this.titular = titular;
     }
+    public Conta isConta(int numero, Conta []conta){
+        for(int i = 0; i< conta.length;i++){
+            if(conta[i].getNumero_conta() == numero){
+                return conta[i];
+            }
+        }
+        return null;
+    }
+    public double sacar(double valor){
+        return 0;       
+    }
     
-    public void sacar(){
+    public void depositar(double valor){
         
     }
     
-    public void depositar(){
-        
+    public String status(){
+        return "Titular: " + this.titular + "\nSaldo: "+ this.saldo + "\nNº Conta: "+ this.numero_conta;
     }
     
     public int getNumero_conta() {
@@ -30,12 +41,5 @@ public class Conta {
     public String getTitular() {
         return titular;
     }
-    
-    
-    
-    
-    
-    
-    
     
 }
