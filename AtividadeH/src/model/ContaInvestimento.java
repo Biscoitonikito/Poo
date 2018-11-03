@@ -4,8 +4,8 @@ package model;
 public class ContaInvestimento extends ContaCapital {
     private String data;
 
-    public ContaInvestimento(double saldo, String titular, String data) {
-        super(saldo, titular, data);  
+    public ContaInvestimento(double saldo, String titular,int senha, String data) {
+        super(saldo, titular,senha, data);  
     }
     
     @Override

@@ -3,14 +3,27 @@ package model;
 
 public class Caixa {
     
-    public void sacar(Conta conta, double valor){
-        conta.sacar(valor);
+    public String sacar(Conta conta, double valor,int numero){
+        double r = conta.sacar(valor);
+        
+        if(r != 0){
+            return "Operação concluída";
+        }
+        
+        return null;
     }
     
-    public void sacar(ContaCapital conta,double valor, String data){
+    public String sacar(ContaCapital conta,double valor, String data){
         if(conta.getData() == data){
-            conta.sacar(valor);
+            double r = conta.sacar(valor);
+        
+            if(r != 0){
+                return "Operação concluída";
+            }
+        
+            return null;
         }
+        return null;
     }
     
     public String sacar(ContaDigital conta, double valor){

@@ -4,11 +4,13 @@ package model;
 public class Conta {
     protected double saldo;
     protected String titular;
+    protected int senha;
     protected int numero_conta = (int) Math.random();
 
-    public Conta(double saldo, String titular) {
+    public Conta(double saldo, String titular, int senha) {
         this.saldo = saldo;
         this.titular = titular;
+        this.senha = senha;
     }
     public Conta isConta(int numero, Conta []conta){
         for(int i = 0; i< conta.length;i++){
@@ -41,5 +43,9 @@ public class Conta {
     public String getTitular() {
         return titular;
     }
-    
+
+    public int getSenha() {
+        return senha;
+    }
+
 }
