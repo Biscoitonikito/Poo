@@ -3,7 +3,7 @@ package model;
 
 public class Caixa {
     
-    public String sacar(Conta conta, double valor,int numero){
+    public String sacar(Conta conta, double valor){
         double r = conta.sacar(valor);
         
         if(r != 0){
@@ -13,7 +13,7 @@ public class Caixa {
         return null;
     }
     
-    public String sacar(ContaCapital conta,double valor, String data){
+    public String sacar(ContaCapital conta, double valor, String data){
         if(conta.getData() == data){
             double r = conta.sacar(valor);
         

@@ -4,8 +4,8 @@ package model;
 public class ContaCapital extends Conta {
     String data;
     
-    public ContaCapital(double saldo, String titular,int senha, String data) {
-        super(saldo, titular,senha);
+    public ContaCapital(double saldo, String titular,int senha,boolean da_ta, String data) {
+        super(saldo, titular,senha,da_ta);
         this.data = data;
     }
     

@@ -1,11 +1,12 @@
 
 package model;
 
-public class ContaInvestimento extends ContaCapital {
+public class ContaInvestimento extends Conta {
     private String data;
 
-    public ContaInvestimento(double saldo, String titular,int senha, String data) {
-        super(saldo, titular,senha, data);  
+    public ContaInvestimento(double saldo, String titular,int senha,boolean da_ta, String data) {
+        super(saldo, titular,senha,da_ta);  
+        this.data =data;
     }
     
     @Override
@@ -22,6 +23,14 @@ public class ContaInvestimento extends ContaCapital {
             return saque;
         }
         return 0;
+    }
+    
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 
 }

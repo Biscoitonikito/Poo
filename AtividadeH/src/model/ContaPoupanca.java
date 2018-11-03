@@ -4,8 +4,8 @@ package model;
 
 public class ContaPoupanca extends Conta {
     
-    public ContaPoupanca(double saldo, String titular, int senha) {
-        super(saldo, titular,senha);
+    public ContaPoupanca(double saldo, String titular, int senha,boolean data) {
+        super(saldo, titular,senha, data);
     }
     
     @Override

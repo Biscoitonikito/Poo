@@ -5,12 +5,14 @@ public class Conta {
     protected double saldo;
     protected String titular;
     protected int senha;
+    boolean data;
     protected int numero_conta = (int) Math.random();
 
-    public Conta(double saldo, String titular, int senha) {
+    public Conta(double saldo, String titular, int senha, boolean data) {
         this.saldo = saldo;
         this.titular = titular;
         this.senha = senha;
+        this.data = data;
     }
     public Conta isConta(int numero, Conta []conta){
         for(int i = 0; i< conta.length;i++){
@@ -46,6 +48,10 @@ public class Conta {
 
     public int getSenha() {
         return senha;
+    }
+
+    public boolean isData() {
+        return data;
     }
 
 }

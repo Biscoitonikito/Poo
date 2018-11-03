@@ -4,8 +4,8 @@ package model;
 public class ContaCorrente extends Conta {
     double limite;
     
-    public ContaCorrente(double saldo, String titular,int senha, double limite) {
-        super(saldo, titular,senha);
+    public ContaCorrente(double saldo, String titular,int senha,boolean data, double limite) {
+        super(saldo, titular,senha, data);
         this.limite = limite;
     }
     
