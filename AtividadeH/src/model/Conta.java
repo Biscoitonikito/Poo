@@ -1,18 +1,23 @@
 
 package model;
 
+import java.util.Random;
+
 public class Conta {
     protected double saldo;
     protected String titular;
     protected int senha;
     boolean data;
-    protected int numero_conta = (int) Math.random();
+    protected int numero_conta;
 
     public Conta(double saldo, String titular, int senha, boolean data) {
+        if(saldo > 0){
         this.saldo = saldo;
         this.titular = titular;
         this.senha = senha;
         this.data = data;
+        Random gerador = new Random();
+        this.numero_conta = gerador.nextInt(1000);}
     }
     public Conta isConta(int numero, Conta []conta){
         for(int i = 0; i< conta.length;i++){

@@ -12,5 +12,13 @@ public class ContaDigital {
         conta.depositar(valor);
     }
     
+    public int getNumero_conta(){
+        return conta.getNumero_conta();
+    }
+    
+    public Conta ret_c(){
+        return this.conta;
+    }
+    
     
 }
