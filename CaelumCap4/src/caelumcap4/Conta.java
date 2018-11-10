@@ -12,7 +12,7 @@ public class Conta {
     
     
     public boolean saca(double valor){
-        if(this.saldo - valor >= 0){
+        if(this.saldo < valor){
             this.saldo -= valor;
             return true;
         }
