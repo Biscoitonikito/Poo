@@ -90,7 +90,8 @@ public class CaelumCap3_2 {
                 System.out.println(i*j+" ");
             }
             System.out.println("\n");
-        }      
+        }
+        
         
     }
 }
