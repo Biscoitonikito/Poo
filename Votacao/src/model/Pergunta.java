@@ -3,12 +3,19 @@ package model;
 
 import java.util.ArrayList;
 
-class Pergunta {
+public class Pergunta {
     private String Escopo;
-    private ArrayList <Opcao> listaOpcao = new ArrayList();
+    boolean obrigatoria;
+    private ArrayList <Opcao> listaOpcao;
     
-    Pergunta(String escopo){
+    public Pergunta(String escopo, boolean tipo){
+        this.obrigatoria = tipo;
         this.Escopo = escopo;
+        this.listaOpcao = new ArrayList<Opcao>(5);
+    }
+    
+    public void criarPergunta(Opcao opcao){
+        this.listaOpcao.add(opcao);
     }
 
     public String getEscopo() {
@@ -19,11 +26,6 @@ class Pergunta {
         return listaOpcao;
     }
 
-    public void marca(int i){
-        if(i > 0 && i < 6){
-            this.listaOpcao.get(i-1).aumentaContador();
-            this.listaOpcao.get(i-1).setMarcado();
-        }
-    }
+    
     
 }

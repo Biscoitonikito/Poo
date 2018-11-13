@@ -1,5 +1,5 @@
 
-package votacao;
+package app;
 
 
 public class Votacao {

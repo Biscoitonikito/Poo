@@ -2,27 +2,22 @@
 package model;
 
 
-class Opcao {
-    private String opcaoEscopo;
-    private boolean marcado;
+public class Opcao {
+    private String escopo;
     private int contador;
     
-    Opcao(String escopo){
-        this.opcaoEscopo = escopo;
-        this.marcado = false;
+    public Opcao(String escopo){
+        this.escopo = escopo;
         this.contador = 0;
+    }
+    
+    public Opcao(){
+        this.contador = 0;
+        this.escopo = "Opcão Invalida";
     }
 
     public String getOpcapEscopo() {
-        return opcaoEscopo;
-    }
-
-    public boolean isMarcado() {
-        return marcado;
-    }
-
-    public void setMarcado() {
-        this.marcado = true;
+        return escopo;
     }
 
     public int getContador() {
