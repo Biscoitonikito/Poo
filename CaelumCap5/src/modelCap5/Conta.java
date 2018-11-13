@@ -1,5 +1,5 @@
 
-package caelumcap5;
+package modelCap5;
 
 public class Conta {
     private String titular;
