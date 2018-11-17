@@ -4,7 +4,15 @@ package app;
 import java.util.Scanner;
 import model.Opcao;
 import negocio.Intermediario;
-
+    //
+    //
+    //
+    //
+    // SO DA UMA OLHADA EM QUAIS METODOS RETORNAM ALGO, SE TIVER UM Q RETOEN STRING PRITNTA ELE;
+    // Caso va testar, explica como e que ocorre, primeiro e criado uma votacao, para se adicionar pergunta e opçoes a ela e necessario esta logado no adm, qualquer oprecao
+    // Alem de votar e preciso estar nele
+    //
+    //
 
 public class app {
     public static void main(String[] args) {
@@ -62,7 +70,7 @@ public class app {
                         //Aqui ele tem opções de modificar tudo
                         while(continua == 1){
                             System.out.println("Aqui voce pode:\n 1 - Adicionar Perguntas\n 2 - Remover Pergunta \n 3 - Alterar Pergunta"
-                                + "\n 4 - Adiciona Opções\n 5 - Remover Opções\n 6 - Alterar Opção\n 7 - Abrir ou Fechar votação ");
+                                + "\n 4 - Adiciona Opções\n 5 - Remover Opções\n 6 - Alterar Opção\n 7 - Abrir ou Fechar votação\n 8 - Apuração ");
                         
                             int escolha;
                             Scanner escolhaA = new Scanner(System.in);
@@ -117,6 +125,19 @@ public class app {
                             
                             if(escolha == 7){
                                 negocio.op_clo();
+                            }
+                            
+                            if(escolha == 8){
+                                //Printando a apuração
+                                int [] votos;
+                                for(int i = 0; i < negocio.getVotacao().getListaPergunta().size(); i++){
+                                    System.out.println((i+1) + " - " + negocio.getVotacao().getListaPergunta().get(i).getEscopo());
+                                    votos = negocio.getVotacao().apuracao(i);
+                                    
+                                    for(int j = 0; j < negocio.getVotacao().getListaPergunta().get(i).getListaOpcao().size(); j++){
+                                        System.out.println((j+1) + " - " + negocio.getVotacao().getListaPergunta().get(i).getListaOpcao().get(j).getOpcapEscopo() + " - Recebeu: " + votos[j] + " voto(s)");
+                                    }
+                                }
                             }
                         }
                     }

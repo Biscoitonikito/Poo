@@ -76,7 +76,7 @@ public class Votacao {
     
     public boolean validaToken(int token){
         for(int i = 0; i < this.listaToken.size(); i++){
-            if(this.listaToken.get(i).getNumero() == token){
+            if(this.listaToken.get(i).getNumero() == token && this.listaToken.get(i).isUtilizado() == false){
                 return true;
             }
         }
@@ -96,6 +96,10 @@ public class Votacao {
 
     public int getSenhaAdm() {
         return senhaAdm;
+    }
+    
+    public int [] apuracao(int i){
+        return this.listaPergunta.get(i).returnQuantia();
     }
     
 }

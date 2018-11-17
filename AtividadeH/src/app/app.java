@@ -8,15 +8,7 @@ import model.Conta;
 import model.ContaCapital;
 
 public class app {
-    //
-    //
-    //
-    //
-    // SO DA UMA OLHADA EM QUAIS METODOS RETORNAM ALGO, SE TIVER UM Q RETOEN STRING PRITNTA ELE;
-    //
-    //
-    //
-    //
+ 
     public static void main(String[] args){
         Banco banco = new Banco();
         Conta[] contas = banco.ret_contas();

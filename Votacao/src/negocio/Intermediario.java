@@ -34,10 +34,7 @@ public class Intermediario {
     }
     
     public boolean validaToken(int i){
-        if(this.votacao.validaToken(i)==true){
-            return true;
-        }
-        return false;
+        return this.votacao.validaToken(i);
     }
     
     /*public String modificarVoto(int token, int i, int j){
@@ -50,12 +47,14 @@ public class Intermediario {
             }
         }
         return "Não houve como modificar o voto";
-    }*/
-    
-    
+    }*/    
     
     public void op_clo(){
         this.votacao.openClose();
+    }
+    
+    public int [] apura(int i){
+        return this.votacao.apuracao(i);
     }
     
     
