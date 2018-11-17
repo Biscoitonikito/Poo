@@ -8,37 +8,75 @@ import model.Opcao;
 import model.Pergunta;
 import model.Token;
 
-public class intermediario {
-
+public class Intermediario {
     private Votacao votacao;
-    private Random gerador = new Random();
     
-    public String votar(int token, int i, int j){
+    public Intermediario(){
+        
+    }
+       
+    public String criarVotacao(String nome){
+        this.votacao = new Votacao(nome);
+        return this.votacao.status();
+    }
+    
+    public void criarPergunta(String escopo, boolean tipo){
+        this.votacao.criarPergunta(escopo, tipo);   
+    }
+    
+    public void criarOpcao(String escopo){
+        this.votacao.getListaPergunta().get(this.votacao.getListaPergunta().size()-1).criarOpcao(escopo);
+    }
+    
+    public String votar(int i, int j){
+        this.votacao.marca(i,j);
+        return "Voto efetuado";
+    }
+    
+    public boolean validaToken(int i){
+        if(this.votacao.validaToken(i)==true){
+            return true;
+        }
+        return false;
+    }
+    
+    /*public String modificarVoto(int token, int i, int j){
         for(int x = 0; x < this.votacao.getListaToken().size(); x++){
             if(this.votacao.getListaToken().get(x).getNumero() == token){
-                if(this.votacao.getListaToken().get(x).isUtilizado() != true){
-                    marca(i,j);
+                if(this.votacao.getListaToken().get(x).isUtilizado() == true){
+                    this.votacao.marca(i,j);
+                    return "Voto modificado";
                 }
             }
         }
-        return null;
+        return "Não houve como modificar o voto";
+    }*/
+    
+    
+    
+    public void op_clo(){
+        this.votacao.openClose();
     }
     
-    public String marca(int i, int j){
+    
+    /*public String marca(int i, int j){
         if(i > 0 && i < this.votacao.getListaPergunta().size() ){
-            if(j>0 && j<6){
-                this.votacao.getListaPergunta().get(i).getListaOpcao().get(j-1).aumentaContador();
+            if(j>0 && j<this.votacao.getListaPergunta().get(i).getListaOpcao().size()){
+                this.votacao.getListaPergunta().get(i).marca(j);
                 return "Voto confirmado";
             }
-            if(j == 6){
+            else{
                 return "Voto Branco";
             }
         }
         return null;
     }
     
-    public void criarVotacao(String nome, int perguntas, int tokens){
-      votacao = new Votacao(nome,perguntas,tokens);
+    
+    
+    public void criarVotacao(String nome){
+        int senha = gerador.nextInt(1000);
+        votacao = new Votacao(nome);
     }
     
     public void criarPergunta(String escopo, boolean tipo){
@@ -62,9 +100,7 @@ public class intermediario {
         }
         
     }
-    public ArrayList <Token> getToken(){
-        return this.votacao.getListaToken();
-    }
+    
     public void gerarTokens(){
         for(int i = 0 ; i<this.votacao.getListaToken().size(); i++){
             int a = gerador.nextInt(300);
@@ -83,6 +119,10 @@ public class intermediario {
         }
         
         return apuracao;
+    }*/
+
+    public Votacao getVotacao() {
+        return votacao;
     }
 
 }

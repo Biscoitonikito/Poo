@@ -4,16 +4,13 @@ package model;
 
 public class Opcao {
     private String escopo;
+    private boolean marcado;
     private int contador;
     
     public Opcao(String escopo){
         this.escopo = escopo;
+        this.marcado = false;
         this.contador = 0;
-    }
-    
-    public Opcao(){
-        this.contador = 0;
-        this.escopo = "Opcão Invalida";
     }
 
     public String getOpcapEscopo() {
@@ -23,10 +20,31 @@ public class Opcao {
     public int getContador() {
         return contador;
     }
+    
+    public boolean isMarcado() {
+        return marcado;
+    }
 
-    public void aumentaContador() {
+    public void setMarcado() {
+        if(this.marcado == false){
+            this.marcado = true;
+            aumentaContador();
+        }
+        else{
+            this.marcado = false;
+            diminuirContador();
+        }
+    }
+    
+    private void aumentaContador() {
         this.contador += 1;
     }
+    
+    private void diminuirContador() {
+        this.contador -= 1;
+    }
+    
+    
     
     
 }
