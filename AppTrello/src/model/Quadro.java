@@ -24,16 +24,20 @@ public class Quadro {
     }
     
             
-    void deletarLista(){
-        
+    void deletarLista(int i){
+        if(this.Listas.get(i).isArquivada() == true){
+            this.Listas.remove(i);
+        }
+    }
+
+    void copiar(int i){
+        if(this.Listas.get(i).isArquivada() == false){
+            this.Listas.add(this.Listas.get(i));
+        }
     }
     
     void mover(){
-        
-    }
-    
-    void copiar(){
-        
+        //Complemento depois
     }
 
     public String getTitulo() {

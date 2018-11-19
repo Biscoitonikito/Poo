@@ -12,6 +12,7 @@ public class Lista {
     
     Lista(String titulo){
         this.titulo = titulo;
+        this.arquivada = false;
         this.listaCartoes = new ArrayList<Cartao>();
     }
     
@@ -31,7 +32,9 @@ public class Lista {
     }
     
     public void copiarCartao(int i){
-        this.listaCartoes.add(this.listaCartoes.get(i));
+        if(this.listaCartoes.get(i).isArquivada() == false){
+            this.listaCartoes.add(this.listaCartoes.get(i));
+        }
     }
     
     public void arquivaCartao(int i){
@@ -40,7 +43,7 @@ public class Lista {
     
     public Cartao buscaCartao(String nome) {
         for(int i = 0; i < this.listaCartoes.size(); i++){
-            if(this.listaCartoes.get(i).getTitulo() == titulo){
+            if(this.listaCartoes.get(i).getTitulo() == titulo && this.listaCartoes.get(i).isArquivada() == false){
                 return this.listaCartoes.get(i);
             }
         }
