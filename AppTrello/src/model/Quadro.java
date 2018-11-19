@@ -1,22 +1,43 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package model;
 
-/**
- *
- * @author Guilherme
- */
+import java.util.ArrayList;
+
+
 public class Quadro {
+    String titulo;
     String visibilidade;
-    lista
+    ArrayList <Lista> Listas;
+    
+    Quadro(String titulo, int i){
+        this.titulo = titulo;
+        if(i == 1){
+            this.visibilidade = "Privado";
+        }
+        if(i == 2){
+            this.visibilidade = "Visivel para o Time";
+        }
+        if(i == 3){
+            this.visibilidade = "Publico";
+        }
+        this.Listas = new ArrayList<Lista>();
+    }
+    
             
-            void arquiva;
-    void seguir;
-    void criarcheck;
-    void arquivar;
-    void seguir;
-    void mover;
+    void arquiva(){
+        
+    }
+    void seguir(){
+        
+    }
+    void criarcheck(){
+        
+    }
+    void arquivar(){
+        
+    }
+
+    void mover(){
+        
+    }
 }

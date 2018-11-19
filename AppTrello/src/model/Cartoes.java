@@ -10,13 +10,15 @@ package model;
  * @author Guilherme
  */
 public class Cartoes {
-    data de entrega
-    titulo
-    descriçao
+    String dtEntrega;
+    String titulo;
+    String descriçao;
     CheckList check;
     String comentarios[];
     
     Cartoes(){
         
     }
+    
+    
 }

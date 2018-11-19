@@ -10,7 +10,12 @@ package model;
  * @author Guilherme
  */
 public class Time {
-    nome;
-    descrição
-    membros
+    String nome;
+    String descrição;
+    
+    Usuario []membros;
+    
+    void distribuir(){
+        
+    }
 }
