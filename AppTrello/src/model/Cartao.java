@@ -7,26 +7,88 @@ package model;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Guilherme
- */
 public class Cartao {
-    String titulo;
-    String descricao;
+
+    private String titulo;
+    private String descricao;
     private ArrayList <Etiqueta> etiquetas;
     private ArrayList <String> comentarios;
-    CheckList check;
+    private boolean checkavel;
+    private CheckList check;
+    private boolean arquivada;
     
     Cartao(String titulo, String descricao){
         this.titulo = titulo;
         this.descricao = descricao;
         this.etiquetas = new ArrayList<Etiqueta>();
         this.comentarios = new ArrayList<String>();
+        this.checkavel = false;
+        this.arquivada = false;
+    }
+    
+    public void criarCheck(){
+        this.check = new CheckList();
+        this.checkavel = true;
+    }
+    
+    public void fecharCheck(){
+        this.checkavel = false;
+        this.check = null;
+    }
+    
+    public void criarOpcao(String titulo){
+        if(this.checkavel == true){
+            this.check.criarOpcao(titulo);
+        }
+    }
+    
+    public void removerOpcao(int i){
+        if(this.checkavel == true){
+            this.check.removerOpcao(i);
+        }
+    }
+    
+    public void marca(int i){
+        if(this.checkavel == true){
+            this.check.marca(i);
+        }
+    }
+    
+    public void criarEtiqueta(String cor, String conteudo){
+        Etiqueta etiqueta = new Etiqueta(cor, conteudo);  
+    }
+    
+    public void removerEtiqueta(int i){
+        this.etiquetas.remove(i);
     }
 
     public String getTitulo() {
         return titulo;
     }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public ArrayList<Etiqueta> getEtiquetas() {
+        return etiquetas;
+    }
+
+    public ArrayList<String> getComentarios() {
+        return comentarios;
+    }
+
+    public void setArquivada(boolean arquivada) {
+        this.arquivada = arquivada;
+    }
+
     
 }
