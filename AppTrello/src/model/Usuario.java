@@ -6,20 +6,27 @@ import java.util.ArrayList;
 public class Usuario {
     Perfil perfil;
     private ArrayList <Quadro> listaQuadros;
-    private ArrayList <Cartoes> listaCartoes;
+    
     private ArrayList <Time> Times;
 
     
-    Usuario(String login, int senha){
-        this.perfil = new Perfil(login,senha);
+    Usuario(String nome,String login, int senha){
+        this.perfil = new Perfil(nome,login,senha);
         this.listaQuadros = new ArrayList<Quadro>();
-        this.listaCartoes = new ArrayList<Cartoes>();
+        this.listaCartoes 
         this.Times = new ArrayList<Time>();
     }
     
-    void buscar(){
-        
+    Cartoes buscarCard(String titulo){
+        for(int i = 0; i < this.listaQuadros.size(); i++){
+            if(this.listaCartoes.get(i).getTitulo() == titulo){
+                return this.listaCartoes.get(i);
+            }
+        }
+        return null;
     }
+    
+    Quadro
     
     void criarquadro(){
         

@@ -24,20 +24,20 @@ public class Quadro {
     }
     
             
-    void arquiva(){
+    void deletarLista(){
         
     }
-    void seguir(){
-        
-    }
-    void criarcheck(){
-        
-    }
-    void arquivar(){
-        
-    }
-
+    
     void mover(){
         
     }
+    
+    void copiar(){
+        
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
 }
