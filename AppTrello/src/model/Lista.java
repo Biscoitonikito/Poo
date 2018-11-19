@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Lista {
     private String titulo;
+    private boolean arquivada;
     private ArrayList <Cartao> listaCartoes;
 
     
@@ -19,16 +20,56 @@ public class Lista {
         this.listaCartoes.add(cartao);
     }
     
-    public void removerCartao(int i){
-        this.listaCartoes.remove(i);
+    public void mover(){
+        //Complemento depois
     }
     
-    public Cartao getListaCartao(String nome) {
+    public void removerCartao(int i){
+        if(this.listaCartoes.get(i).isArquivada() == true){
+            this.listaCartoes.remove(i);
+        }
+    }
+    
+    public void copiarCartao(int i){
+        this.listaCartoes.add(this.listaCartoes.get(i));
+    }
+    
+    public void arquivaCartao(int i){
+        this.listaCartoes.get(i).setArquivada();
+    }
+    
+    public Cartao buscaCartao(String nome) {
         for(int i = 0; i < this.listaCartoes.size(); i++){
             if(this.listaCartoes.get(i).getTitulo() == titulo){
                 return this.listaCartoes.get(i);
             }
         }
         return null;
+    }
+    
+    public ArrayList<Cartao> getListaCartoes() {
+        return listaCartoes;
+    }
+    
+    public void setArquivada() {
+        if(this.arquivada == false){
+            this.arquivada = true;
+        }
+        else{
+            this.arquivada = false;
+        }
+    
+    }
+    
+    public boolean isArquivada() {
+        return arquivada;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 }

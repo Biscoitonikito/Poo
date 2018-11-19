@@ -26,6 +26,16 @@ public class Cartao {
         this.arquivada = false;
     }
     
+    public void setArquivada() {
+        if(this.arquivada == false){
+            this.arquivada = true;
+        }
+        else{
+            this.arquivada = false;
+        }
+    
+    }
+    
     public void criarCheck(){
         this.check = new CheckList();
         this.checkavel = true;
@@ -86,9 +96,8 @@ public class Cartao {
         return comentarios;
     }
 
-    public void setArquivada(boolean arquivada) {
-        this.arquivada = arquivada;
+    public boolean isArquivada() {
+        return arquivada;
     }
-
-    
+  
 }
