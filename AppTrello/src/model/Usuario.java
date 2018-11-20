@@ -28,9 +28,19 @@ public class Usuario {
     public Quadro getQuadro(int i){
         return this.listaQuadros.get(i);
     }
+
+    public ArrayList<Quadro> getListaQuadros() {
+        return listaQuadros;
+    }
     
     public void criarQuadro(String titulo){
         Quadro quadro = new Quadro(titulo);
+    }
+    
+    public void removerQuadro(int i){
+        if(this.listaQuadros.get(i).isFechado() == true){
+            this.listaQuadros.remove(i);
+        }
     }
     
     public void fecharQuadro(int i){
@@ -38,17 +48,13 @@ public class Usuario {
     }
     
     public void copiarQuadro(int i){
-        this.listaQuadros.add(this.listaQuadros.get(i));
+        if(this.listaQuadros.get(i).isFechado() == false){
+            this.listaQuadros.add(this.listaQuadros.get(i));
+        }
     }
-    
-    
-    
-    /*void criatime(){
-        
+
+    public Perfil getPerfil() {
+        return perfil;
     }
-    
-    void mostratime(){
-        
-    }*/
 
 }

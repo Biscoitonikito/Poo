@@ -1,7 +1,7 @@
 
 package model;
 
-class Perfil {
+public class Perfil {
     private String nome;
     private String login;
     private int senha;
@@ -13,10 +13,14 @@ class Perfil {
     }
     
     public boolean validar(String login, int senha){
-        if(this.login == login && this.senha == senha){
+        if((this.login == null ? login == null : this.login.equals(login)) && this.senha == senha){
             return true;
         }
         return false;
+    }
+
+    public int getSenha() {
+        return senha;
     }
 
     public String getLogin() {
