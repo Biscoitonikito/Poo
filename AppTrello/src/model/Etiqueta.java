@@ -3,8 +3,8 @@ package model;
 
 
 class Etiqueta {
-    String cor;
-    String conteudo;
+    private String cor;
+    private String conteudo;
     
     Etiqueta(String cor, String conteudo){
         if(conteudo == ""){

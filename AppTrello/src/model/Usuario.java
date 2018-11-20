@@ -4,16 +4,15 @@ package model;
 import java.util.ArrayList;
 
 public class Usuario {
-    Perfil perfil;
+    private Perfil perfil;
     private ArrayList <Quadro> listaQuadros;
-    
-    private ArrayList <Time> Times;
+    //private ArrayList <Time> Times;
 
     
-    Usuario(String nome,String login, int senha){
+    public Usuario(String nome,String login, int senha){
         this.perfil = new Perfil(nome,login,senha);
         this.listaQuadros = new ArrayList<Quadro>();
-        this.Times = new ArrayList<Time>();
+        //this.Times = new ArrayList<Time>();
     }
     
     
@@ -26,23 +25,30 @@ public class Usuario {
         return null;
     }
     
-    void criarquadro(){
-        
+    public Quadro getQuadro(int i){
+        return this.listaQuadros.get(i);
     }
     
-    void mostraquadros(){
-        
+    public void criarQuadro(String titulo){
+        Quadro quadro = new Quadro(titulo);
     }
     
-    void criatime(){
+    public void fecharQuadro(int i){
+        this.listaQuadros.get(i).setFechado();
+    }
+    
+    public void copiarQuadro(int i){
+        this.listaQuadros.add(this.listaQuadros.get(i));
+    }
+    
+    
+    
+    /*void criatime(){
         
     }
     
     void mostratime(){
         
-    }
-    
-    
-    
-    
+    }*/
+
 }

@@ -5,21 +5,17 @@ import java.util.ArrayList;
 
 
 public class Quadro {
-    String titulo;
-    String visibilidade;
-    ArrayList <Lista> Listas;
+    private String titulo;
+    private String visibilidade;
+    private boolean favorito;
+    private boolean fechado;
+    private ArrayList <Lista> Listas;
     
-    Quadro(String titulo, int i){
+    Quadro(String titulo){
         this.titulo = titulo;
-        if(i == 1){
-            this.visibilidade = "Privado";
-        }
-        if(i == 2){
-            this.visibilidade = "Visivel para o Time";
-        }
-        if(i == 3){
-            this.visibilidade = "Publico";
-        }
+        this.visibilidade = "Privado";
+        this.fechado = false;
+        this.favorito = false;
         this.Listas = new ArrayList<Lista>();
     }
     
@@ -29,8 +25,12 @@ public class Quadro {
             this.Listas.remove(i);
         }
     }
+    
+    public void arquivaLista(int i){
+        this.Listas.get(i).setArquivada();
+    }
 
-    void copiar(int i){
+    void copiarLista(int i){
         if(this.Listas.get(i).isArquivada() == false){
             this.Listas.add(this.Listas.get(i));
         }
@@ -40,8 +40,59 @@ public class Quadro {
         //Complemento depois
     }
 
+    public ArrayList<Lista> getListas() {
+        return Listas;
+    }
+    
     public String getTitulo() {
         return titulo;
     }
 
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getVisibilidade() {
+        return visibilidade;
+    }
+ 
+    public void setVisibilidade(int i) {
+        if(i == 1){
+            this.visibilidade = "Privado";
+        }
+        if(i == 2){
+            this.visibilidade = "Visivel para o Time";
+        }
+        if(i == 3){
+            this.visibilidade = "Publico";
+        }
+    }
+
+    public void setFavorito() {
+        if(this.favorito == false){
+            this.favorito = true;
+        }
+        else{
+            this.favorito = false;
+        }
+    }
+
+    public boolean isFavorito() {
+        return favorito;
+    }
+    
+    public void setFechado(){
+        if(this.fechado == false){
+            this.fechado = true;
+        }
+        else{
+            this.fechado = false;
+        }
+    }
+
+    public boolean isFechado() {
+        return fechado;
+    }
+    
+    
 }

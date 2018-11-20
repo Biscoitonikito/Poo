@@ -2,9 +2,9 @@
 package model;
 
 class Perfil {
-    String nome;
-    String login;
-    int senha;
+    private String nome;
+    private String login;
+    private int senha;
     
     Perfil(String nome,String login, int senha){
         this.nome = nome;
@@ -26,5 +26,19 @@ class Perfil {
     public String getNome(){
         return this.nome;
     }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public void setSenha(int senha) {
+        this.senha = senha;
+    }
+    
+    
      
 }
