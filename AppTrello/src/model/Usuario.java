@@ -2,6 +2,8 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Usuario {
     private Perfil perfil;
@@ -15,6 +17,9 @@ public class Usuario {
         //this.Times = new ArrayList<Time>();
     }
     
+    public int getSize(){
+        return this.listaQuadros.size();
+    }
     
     public Quadro buscaQuadro(String nome) {
         for(int i = 0; i < this.listaQuadros.size(); i++){
@@ -28,13 +33,10 @@ public class Usuario {
     public Quadro getQuadro(int i){
         return this.listaQuadros.get(i);
     }
-
-    public ArrayList<Quadro> getListaQuadros() {
-        return listaQuadros;
-    }
     
     public void criarQuadro(String titulo){
         Quadro quadro = new Quadro(titulo);
+        this.listaQuadros.add(quadro);
     }
     
     public void removerQuadro(int i){

@@ -50,8 +50,8 @@ public class Lista {
         return null;
     }
     
-    public ArrayList<Cartao> getListaCartoes() {
-        return listaCartoes;
+    public Cartao getCartoes(int i) {
+        return this.listaCartoes.get(i);
     }
     
     public void setArquivada() {

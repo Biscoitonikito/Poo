@@ -1,5 +1,5 @@
 
-package negocio;
+package model;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,8 +18,12 @@ public class Users {
         Usuario usuario = new Usuario(nome,login,senha);
         this.listaUsuario.add(usuario);
     }
+    
+    public int getSize(){
+        return this.listaUsuario.size();
+    }
 
-    public List<Usuario> getListaUsuario() {
-        return Collections.unmodifiableList(listaUsuario);
+    public Usuario getUsuario(int i) {
+        return this.listaUsuario.get(i);
     }
 }

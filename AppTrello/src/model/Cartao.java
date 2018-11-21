@@ -88,12 +88,12 @@ public class Cartao {
         this.descricao = descricao;
     }
 
-    public ArrayList<Etiqueta> getEtiquetas() {
-        return etiquetas;
+    public Etiqueta getEtiquetas(int i) {
+        return this.etiquetas.get(i);
     }
 
-    public ArrayList<String> getComentarios() {
-        return comentarios;
+    public String getComentarios(int i) {
+        return this.comentarios.get(i);
     }
 
     public boolean isArquivada() {

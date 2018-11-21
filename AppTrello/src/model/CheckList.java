@@ -21,8 +21,8 @@ public class CheckList {
         this.listaOpcao.get(i).setMarcado();
     }
 
-    public ArrayList<Opcao> getListaOpcao() {
-        return listaOpcao;
+    public Opcao getListaOpcao(int i) {
+        return this.listaOpcao.get(i);
     }
     
     public void criarOpcao(String escopo){

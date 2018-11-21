@@ -39,9 +39,12 @@ public class Quadro {
     void mover(){
         //Complemento depois
     }
-
-    public ArrayList<Lista> getListas() {
-        return Listas;
+    
+    public int getSize(){
+        return this.Listas.size();
+    }
+    public Lista getLista(int i) {
+        return this.Listas.get(i);
     }
     
     public String getTitulo() {

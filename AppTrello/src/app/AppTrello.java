@@ -2,7 +2,7 @@
 package app;
 
 import java.util.Scanner;
-import negocio.Users;
+import model.Users;
 
 public class AppTrello {
 
@@ -28,7 +28,7 @@ public class AppTrello {
             int usuario = 0;
             
             
-            for(int i = 0; i < users.getListaUsuario().size(); i++){
+            for(int i = 0; i < users.getSize(); i++){
                 /*System.out.println("\n");
                 System.out.println(users.getListaUsuario().size());
                 System.out.println(users.getListaUsuario().get(i).getPerfil().getNome());
@@ -39,8 +39,8 @@ public class AppTrello {
                     System.out.println(users.getListaUsuario().get(i).getPerfil().getNome());
                     System.out.println("oi1");
                 }*/
-                if(users.getListaUsuario().get(i).getPerfil().getLogin() == null ? email == null : users.getListaUsuario().get(i).getPerfil().getLogin().equals(email)){
-                    if(users.getListaUsuario().get(i).getPerfil().getSenha() == Lsenha){
+                if(users.getUsuario(i).getPerfil().getLogin() == null ? email == null : users.getUsuario(i).getPerfil().getLogin().equals(email)){
+                    if(users.getUsuario(i).getPerfil().getSenha() == Lsenha){
                     logado = true;
                     usuario = i;
                     }
@@ -55,26 +55,75 @@ public class AppTrello {
             else{
                 while(logado == true){
                     System.out.println("Quadros existentes:\n");
-                    for(int i = 0; i< users.getListaUsuario().get(i).getListaQuadros().size(); i++){
-                        if(users.getListaUsuario().get(usuario).getQuadro(i).isFechado() == false){
-                            System.out.println((i+1) + " - " + users.getListaUsuario().get(usuario).getQuadro(i).getTitulo() + "\n");
+                    for(int i = 0; i< users.getUsuario(usuario).getSize(); i++){
+                        if(users.getUsuario(usuario).getQuadro(i).isFechado() == false){
+                            System.out.println((i+1) + " - " + users.getUsuario(usuario).getQuadro(i).getTitulo() + "\n");
                         }
                     }
-                    System.out.println(users.getListaUsuario().get(usuario).getPerfil().getNome() + " o que deseja fazer?\n 1 - Criar quadros\n 2 - Fechar Quadro\n 3 - Remover Quadro\n 4 - Copiar Quadro\n 5 - Buscar Quadro\n 6 - Configuração");
                     
-                    System.out.println("Deseja sair?\n 1 - sim\n 2 - nao");
+                    System.out.println(users.getUsuario(usuario).getPerfil().getNome() + " o que deseja fazer?\n 1 - Criar quadros\n 2 - Fechar Quadro\n 3 - Remover Quadro\n 4 - Copiar Quadro\n 5 - Buscar Quadro\n 6 - Configuração\n 0 - Sair");
                     int opcao2;
-                    Scanner escolha = new Scanner(System.in);
-                    opcao2 = escolha.nextInt();
-            
+                    Scanner op2 = new Scanner(System.in);
+                    opcao2 = op2.nextInt();
+                    
                     if(opcao2 == 1){
+                        System.out.println("Digite o nome");
+                        String nomeQuadro;
+                        Scanner nameQ = new Scanner(System.in);
+                        nomeQuadro = nameQ.next();
+                        users.getUsuario(usuario).criarQuadro(nomeQuadro);
+                    }
+                    
+                    if(opcao2 == 2){
+                        for(int i = 0; i< users.getUsuario(usuario).getSize(); i++){
+                            if(users.getUsuario(usuario).getQuadro(i).isFechado() == false){
+                                System.out.println((i+1) + " - " + users.getUsuario(usuario).getQuadro(i).getTitulo() + "\n");
+                            }
+                        }
+                        int fecharQuadro;
+                        System.out.println("Digite o número do Quadro do qual quer fechar: ");
+                        Scanner fecharQ = new Scanner(System.in);
+                        fecharQuadro = fecharQ.nextInt();
+                        users.getUsuario(usuario).fecharQuadro(fecharQuadro);
+                    }
+                    
+                    if(opcao2 == 3){
+                        for(int i = 0; i< users.getUsuario(usuario).getSize(); i++){
+                            if(users.getUsuario(usuario).getQuadro(i).isFechado() == true){
+                                System.out.println((i+1) + " - " + users.getUsuario(usuario).getQuadro(i).getTitulo() + "\n");
+                            }
+                        }
+                        int excluirQuadro;
+                        System.out.println("Digite o número do Quadro que quer irá ser removido: ");
+                        Scanner excluirQ = new Scanner(System.in);
+                        excluirQuadro = excluirQ.nextInt();
+                        users.getUsuario(usuario).fecharQuadro(excluirQuadro);
+                    }
+                    
+                    if(opcao2 == 4){
+                        for(int i = 0; i< users.getUsuario(usuario).getSize(); i++){
+                            if(users.getUsuario(usuario).getQuadro(i).isFechado() == false){
+                                System.out.println((i+1) + " - " + users.getUsuario(usuario).getQuadro(i).getTitulo() + "\n");
+                            }
+                        }
+                        int copiarQuadro;
+                        System.out.println("Digite o número do Quadro do qual quer fechar: ");
+                        Scanner copiarQ = new Scanner(System.in);
+                        copiarQuadro = copiarQ.nextInt();
+                        users.getUsuario(usuario).fecharQuadro(copiarQuadro);
+                    }
+                    
+                    if(opcao2 == 5){
+                        String buscaQuadro;
+                        System.out.println("Digite o nome do Quadro do qual quer procurar: ");
+                        Scanner buscaQ = new Scanner(System.in);
+                        buscaQuadro = buscaQ.next();
+                        users.getUsuario(usuario).buscaQuadro(buscaQuadro);
+                    }
+                    
+                    if(opcao2 == 0){
                         logado = false;
                     }
-            
-                    else{
-                        logado = true;
-                    }
-            
                 }
             }
         }          
