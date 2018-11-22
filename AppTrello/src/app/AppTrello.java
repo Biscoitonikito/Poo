@@ -77,7 +77,7 @@ public class AppTrello {
                     if(opcao2 == 2){
                         System.out.println("Quadros existentes:\n");
                             for(int i = 0; i< users.getUsuario(usuario).getSize(); i++){
-                                if(users.getUsuario(usuario).getQuadro(i).isFechado() == false){
+                                if(!users.getUsuario(usuario).getQuadro(i).isFechado()){
                                     System.out.println((i+1) + " - " + users.getUsuario(usuario).getQuadro(i).getTitulo() + "\n");
                                 }
                             }
@@ -87,46 +87,29 @@ public class AppTrello {
                         posicaoQuadro = nameQ.nextInt();
                         posicaoQuadro -= 1;
                         
-                        if(posicaoQuadro > 0 && posicaoQuadro-1 <= users.getUsuario(usuario).getSize()){
-                            System.out.println("\n\n\nListas existentes neste quadro:");
-                            for(int i = 0; i < users.getUsuario(usuario).getQuadro(posicaoQuadro).getSize(); i++){
-                                System.out.println((i+1) + " - " + users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(i).getTitulo());
-                                for(int j = 0; i < users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(i).getSize();i++){
-                                    System.out.println(users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(i).getCartao(i).status()+"\n");
+                        if(!users.getUsuario(usuario).getQuadro(posicaoQuadro).isFechado()){
+                            if(posicaoQuadro > 0 && posicaoQuadro-1 <= users.getUsuario(usuario).getSize()){
+                                System.out.println("\n\n\nListas existentes neste quadro:");
+                                for(int i = 0; i < users.getUsuario(usuario).getQuadro(posicaoQuadro).getSize(); i++){
+                                    if(!users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(i).isArquivada()){
+                                        System.out.println((i+1) + " - " + users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(i).getTitulo());
+                                        for(int j = 0; i < users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(i).getSize();i++){
+                                            if(!users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(i).getCartao(j).isArquivada()){
+                                                System.out.println(users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(i).getCartao(i).status()+"\n");
+                                            }
+                                        }
+                                    }
                                 }
                             }
-                        }
                         
-                        System.out.println("O que deseja fazer neste quadro;\n 1 - Mudar Nome\n 2 - Mudar Nome da Lista\n 3 - Copiar Lista\n 4 - Arquiva Lista\n 5 - Deletar Lista\n 6 - Tornar-lo Favorito"
-                                + "\n 7 - Mudar Visibildade");
-                        int opcao3;
-                        Scanner op3 = new Scanner(System.in);
-                        opcao3 = op3.nextInt();
+                            System.out.println("O que deseja fazer neste quadro;\n 1 - Mudar Nome\n 2 - Mudar Nome da Lista\n 3 - Copiar Lista\n 4 - Arquiva Lista\n 5 - Deletar Lista\n 6 - Tornar-lo Favorito"
+                                    + "\n 7 - Mudar Visibildade");
                         
-                        if(opcao3 == 1){
-                            System.out.println("Digite o novo nome e em caso de querer cancelar apenas não digite nada.");
-                            String newNome;
-                            Scanner nome = new Scanner(System.in);
-                            newNome = nome.next();
-                            if(newNome == ""){
-                                System.out.println("Nome não alterado.");
-                            }
-                            else{
-                                users.getUsuario(usuario).getQuadro(posicaoQuadro).setTitulo(newNome);
-                            }
-                        }
-                        
-                        if(opcao3 == 2){
-                            for(int i = 0; i < users.getUsuario(usuario).getQuadro(posicaoQuadro).getSize(); i++){
-                                if(!users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(i).isArquivada()){
-                                    System.out.println((i+1) + " - " + users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(i).getTitulo());
-                                }
-                            }
-                            int numLista;
-                            Scanner lista = new Scanner(System.in);
-                            numLista = lista.nextInt();
+                            int opcao3;
+                            Scanner op3 = new Scanner(System.in);
+                            opcao3 = op3.nextInt();
                             
-                            if(numLista > 0 && numLista < users.getUsuario(usuario).getQuadro(posicaoQuadro).getSize()){
+                            if(opcao3 == 1){
                                 System.out.println("Digite o novo nome e em caso de querer cancelar apenas não digite nada.");
                                 String newNome;
                                 Scanner nome = new Scanner(System.in);
@@ -135,60 +118,98 @@ public class AppTrello {
                                     System.out.println("Nome não alterado.");
                                 }
                                 else{
-                                     users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(numLista-1).setTitulo(newNome);
+                                    users.getUsuario(usuario).getQuadro(posicaoQuadro).setTitulo(newNome);
                                 }
                             }
-                            
-                        }
                         
-                        if(opcao3 == 3){
-                            for(int i = 0; i < users.getUsuario(usuario).getQuadro(posicaoQuadro).getSize(); i++){
-                                if(users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(i).isArquivada()){
-                                    System.out.println((i+1) + " - " + users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(i).getTitulo());
+                            if(opcao3 == 2){
+                                for(int i = 0; i < users.getUsuario(usuario).getQuadro(posicaoQuadro).getSize(); i++){
+                                    if(!users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(i).isArquivada()){
+                                        System.out.println((i+1) + " - " + users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(i).getTitulo());
+                                    }
+                                }
+                                
+                                int numLista;
+                                Scanner lista = new Scanner(System.in);
+                                numLista = lista.nextInt();
+                            
+                                if(numLista > 0 && numLista < users.getUsuario(usuario).getQuadro(posicaoQuadro).getSize()){
+                                    if(!users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(numLista).isArquivada()){
+                                        System.out.println("Digite o novo nome e em caso de querer cancelar apenas não digite nada.");
+                                        String newNome;
+                                        Scanner nome = new Scanner(System.in);
+                                        newNome = nome.next();
+                                        if(newNome == ""){
+                                            System.out.println("Nome não alterado.");
+                                        }
+                                        else{
+                                            users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(numLista-1).setTitulo(newNome);
+                                        }
+                                    }
                                 }
                             }
-                            int numLista;
-                            Scanner lista = new Scanner(System.in);
-                            numLista = lista.nextInt();
-                            
-                            if(numLista > 0 && numLista < users.getUsuario(usuario).getQuadro(posicaoQuadro).getSize()){
-                                users.getUsuario(usuario).getQuadro(posicaoQuadro).copiarLista(numLista);
-                            }
-                        }
-                        if(opcao3 == 4){
-                            for(int i = 0; i < users.getUsuario(usuario).getQuadro(posicaoQuadro).getSize(); i++){
-                                if(!users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(i).isArquivada()){
-                                    System.out.println((i+1) + " - " + users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(i).getTitulo());
-                                }
-                            }
-                            int numLista;
-                            Scanner lista = new Scanner(System.in);
-                            numLista = lista.nextInt();
-                            
-                            if(numLista > 0 && numLista < users.getUsuario(usuario).getQuadro(posicaoQuadro).getSize()){
-                                users.getUsuario(usuario).getQuadro(posicaoQuadro).arquivaLista(numLista);
-                            }
-                        }
-                        if(opcao3 == 5){
-                            for(int i = 0; i < users.getUsuario(usuario).getQuadro(posicaoQuadro).getSize(); i++){
-                                if(users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(i).isArquivada()){
-                                    System.out.println((i+1) + " - " + users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(i).getTitulo());
-                                }
-                            }
-                            int numLista;
-                            Scanner lista = new Scanner(System.in);
-                            numLista = lista.nextInt();
-                            
-                            if(numLista > 0 && numLista < users.getUsuario(usuario).getQuadro(posicaoQuadro).getSize()){
-                                users.getUsuario(usuario).getQuadro(posicaoQuadro).arquivaLista(numLista);
-                            }
-                        }
                         
-                        if(opcao3 == 6){
+                            if(opcao3 == 3){
+                                for(int i = 0; i < users.getUsuario(usuario).getQuadro(posicaoQuadro).getSize(); i++){
+                                    if(!users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(i).isArquivada()){
+                                        System.out.println((i+1) + " - " + users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(i).getTitulo());
+                                    }
+                                }
                             
-                        }
-                        if(opcao3 == 7){
+                                int numLista;
+                                Scanner lista = new Scanner(System.in);
+                                numLista = lista.nextInt();
                             
+                                if(numLista > 0 && numLista < users.getUsuario(usuario).getQuadro(posicaoQuadro).getSize()){
+                                    if(!users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(numLista).isArquivada()){
+                                        users.getUsuario(usuario).getQuadro(posicaoQuadro).copiarLista(numLista);
+                                    }
+                                }
+                            }
+                            
+                            if(opcao3 == 4){
+                                for(int i = 0; i < users.getUsuario(usuario).getQuadro(posicaoQuadro).getSize(); i++){
+                                    if(!users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(i).isArquivada()){
+                                        System.out.println((i+1) + " - " + users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(i).getTitulo());
+                                    }
+                                }
+                                
+                                int numLista;
+                                Scanner lista = new Scanner(System.in);
+                                numLista = lista.nextInt();
+                            
+                                if(numLista > 0 && numLista < users.getUsuario(usuario).getQuadro(posicaoQuadro).getSize()){
+                                    if(!users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(numLista).isArquivada()){
+                                        users.getUsuario(usuario).getQuadro(posicaoQuadro).arquivaLista(numLista);
+                                    }
+                                }
+                            }
+                            
+                            if(opcao3 == 5){
+                                for(int i = 0; i < users.getUsuario(usuario).getQuadro(posicaoQuadro).getSize(); i++){
+                                    if(users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(i).isArquivada()){
+                                        System.out.println((i+1) + " - " + users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(i).getTitulo());
+                                    }
+                                }
+                                
+                                int numLista;
+                                Scanner lista = new Scanner(System.in);
+                                numLista = lista.nextInt();
+                            
+                                if(numLista > 0 && numLista < users.getUsuario(usuario).getQuadro(posicaoQuadro).getSize()){
+                                    if(users.getUsuario(usuario).getQuadro(posicaoQuadro).getLista(numLista).isArquivada()){
+                                        users.getUsuario(usuario).getQuadro(posicaoQuadro).arquivaLista(numLista);
+                                    }
+                                }
+                            }
+                        
+                            if(opcao3 == 6){
+                                
+                            }
+                            
+                            if(opcao3 == 7){
+                                
+                            }
                         }
                         
                     }
@@ -237,7 +258,9 @@ public class AppTrello {
                         System.out.println("Digite o nome do Quadro do qual quer procurar: ");
                         Scanner buscaQ = new Scanner(System.in);
                         buscaQuadro = buscaQ.next();
-                        users.getUsuario(usuario).buscaQuadro(buscaQuadro);
+                        if(users.getUsuario(usuario).buscaQuadro(buscaQuadro).isFechado()){
+                            System.out.println(users.getUsuario(usuario).buscaQuadro(buscaQuadro).getTitulo());
+                        }
                     }
                     
                     if(opcao2 == 7){
