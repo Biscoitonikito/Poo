@@ -50,7 +50,7 @@ public class Lista {
         return null;
     }
     
-    public Cartao getCartoes(int i) {
+    public Cartao getCartao(int i) {
         return this.listaCartoes.get(i);
     }
     
@@ -74,5 +74,9 @@ public class Lista {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+    
+    public int getSize(){
+        return this.listaCartoes.size();
     }
 }

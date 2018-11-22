@@ -26,6 +26,14 @@ public class Cartao {
         this.arquivada = false;
     }
     
+    public String status(){
+        String status = "  "+ this.titulo + " - Descrição: " + this.descricao + "\nEtiquetas:";
+        for(int i = 0; i < this.etiquetas.size(); i++){
+            status += "\n   " + (i+1) + " - " + this.etiquetas.get(i).getConteudo() +" '" +  this.etiquetas.get(i).getCor() + "' ";
+        }
+        return status;
+    }
+    
     public void setArquivada() {
         if(this.arquivada == false){
             this.arquivada = true;

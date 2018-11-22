@@ -30,7 +30,7 @@ public class Quadro {
         this.Listas.get(i).setArquivada();
     }
 
-    void copiarLista(int i){
+    public void copiarLista(int i){
         if(this.Listas.get(i).isArquivada() == false){
             this.Listas.add(this.Listas.get(i));
         }
