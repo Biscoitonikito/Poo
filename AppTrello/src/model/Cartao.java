@@ -35,12 +35,7 @@ public class Cartao {
     }
     
     public void setArquivada() {
-        if(this.arquivada == false){
-            this.arquivada = true;
-        }
-        else{
-            this.arquivada = false;
-        }
+        this.arquivada = !this.arquivada;
     
     }
     

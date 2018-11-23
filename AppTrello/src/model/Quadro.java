@@ -72,12 +72,7 @@ public class Quadro {
     }
 
     public void setFavorito() {
-        if(this.favorito == false){
-            this.favorito = true;
-        }
-        else{
-            this.favorito = false;
-        }
+        this.favorito = !this.favorito;
     }
 
     public boolean isFavorito() {
@@ -85,12 +80,7 @@ public class Quadro {
     }
     
     public void setFechado(){
-        if(this.fechado == false){
-            this.fechado = true;
-        }
-        else{
-            this.fechado = false;
-        }
+        this.fechado = !this.fechado;
     }
 
     public boolean isFechado() {
