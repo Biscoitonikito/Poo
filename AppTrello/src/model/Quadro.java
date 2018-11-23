@@ -19,8 +19,11 @@ public class Quadro {
         this.Listas = new ArrayList<Lista>();
     }
     
-            
-    void deletarLista(int i){
+    public void criarLista(String nome){
+        Lista lista = new Lista(nome);
+        this.Listas.add(lista);
+    }
+    public void deletarLista(int i){
         if(this.Listas.get(i).isArquivada() == true){
             this.Listas.remove(i);
         }
