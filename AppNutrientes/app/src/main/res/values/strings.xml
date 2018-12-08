@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">AppNutrientes</string>
+    <string name="textview">TextView</string>
+    <string name="obter_dados">Obter Dados</string>
+    <string name="detalhes">Detalhes</string>
+    <string name="digite_seu_nome">Digite seu nome</string>
+    <string name="prote_nas">Proteínas</string>
+    <string name="gorduras">Gorduras</string>
+    <string name="carboidratos">Carboidratos</string>
+    <string name="digite_sua_altura_m">Digite sua Altura(m)</string>
+    <string name="digite_seu_peso_kg">Digite seu Peso(kg)</string>
+    <string name="confirmar">Confirmar</string>
+    <string-array name="life_style">
+        <item>Sedentário</item>
+        <item>Levemente Ativo</item>
+        <item>Moderamente Ativo</item>
+        <item>Muito Ativo</item>
+    </string-array>
+</resources>
