@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "526274961690",
+    "firebase_url": "https://remedymonitor-2fff5.firebaseio.com",
+    "project_id": "remedymonitor-2fff5",
+    "storage_bucket": "remedymonitor-2fff5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:526274961690:android:97fa0bf36f67dcf5",
+        "android_client_info": {
+          "package_name": "com.example.guilherme.atividadex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "526274961690-barhhrvp9q0pehq6pravrp9v113oha2n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.guilherme.atividadex",
+            "certificate_hash": "38f2356bba953c13407fd7b23dd77731a822a288"
+          }
+        },
+        {
+          "client_id": "526274961690-pco53j9dged6rchhacoe3g5boclk06pg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuL5mQbTqWwx0X5kd1dZWXDIUlwqj1xpU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "526274961690-pco53j9dged6rchhacoe3g5boclk06pg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

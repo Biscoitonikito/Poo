@@ -1,0 +1,130 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:4883172362304238833",
+      "lastPropertyId": "2:6936471245307038787",
+      "name": "Logado",
+      "properties": [
+        {
+          "id": "1:820998721608430070",
+          "name": "id"
+        },
+        {
+          "id": "2:6936471245307038787",
+          "name": "idLogado"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:191529051650730938",
+      "lastPropertyId": "6:1019156842204241339",
+      "name": "Medicamento",
+      "properties": [
+        {
+          "id": "1:8795612413225051856",
+          "name": "id"
+        },
+        {
+          "id": "2:3461668740541774568",
+          "name": "nome"
+        },
+        {
+          "id": "3:7619898227024253158",
+          "name": "descricao"
+        },
+        {
+          "id": "4:1349916349527254174",
+          "name": "validade"
+        },
+        {
+          "id": "5:1743041031922638053",
+          "name": "periodo"
+        },
+        {
+          "id": "6:1019156842204241339",
+          "name": "idUsuario"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:1458628065818220441",
+      "lastPropertyId": "3:2314478875624599617",
+      "name": "Periodo",
+      "properties": [
+        {
+          "id": "1:4449401217642072798",
+          "name": "id"
+        },
+        {
+          "id": "2:7931722483395066316",
+          "name": "idDono"
+        },
+        {
+          "id": "3:2314478875624599617",
+          "name": "periodo"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "4:993468893758778483",
+      "lastPropertyId": "9:2741307290919106536",
+      "name": "Usuario",
+      "properties": [
+        {
+          "id": "1:4032123832621235082",
+          "name": "id"
+        },
+        {
+          "id": "2:5019747268897950882",
+          "name": "nome"
+        },
+        {
+          "id": "3:6073298862061703505",
+          "name": "endereco"
+        },
+        {
+          "id": "4:1816217715190140180",
+          "name": "telefone"
+        },
+        {
+          "id": "5:8692050719329144466",
+          "name": "cpf"
+        },
+        {
+          "id": "6:7571195707538546701",
+          "name": "idSupervisonador"
+        },
+        {
+          "id": "7:7796048188448247250",
+          "name": "idResponsavel"
+        },
+        {
+          "id": "8:1258496877271893850",
+          "name": "email"
+        },
+        {
+          "id": "9:2741307290919106536",
+          "name": "senha"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "4:993468893758778483",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}
