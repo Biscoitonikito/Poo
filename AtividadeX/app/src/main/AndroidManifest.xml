@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.guilherme.atividadex">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:name=".dal.App"
         android:allowBackup="true"
@@ -14,15 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".FormularioMedicamentoActivity"
-            android:parentActivityName=".ListaMedicamentoActivity"/>
+        <activity android:name=".activity.FormularioMedicamentoActivity"
+            android:parentActivityName=".activity.ListaMedicamentoActivity"/>
         <activity
-            android:name=".CadastrarActivity"
-            android:parentActivityName=".LoginActivity" />
+            android:name=".activity.CadastrarActivity"
+            android:parentActivityName=".activity.LoginActivity" />
         <activity
-            android:name=".ListaMedicamentoActivity"
-            android:parentActivityName=".ListaMedicamentoActivity" />
-        <activity android:name=".LoginActivity">
+            android:name=".activity.ListaMedicamentoActivity"
+            android:parentActivityName=".activity.ListaMedicamentoActivity" />
+        <activity android:name=".activity.LoginActivity" android:parentActivityName=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

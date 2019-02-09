@@ -1,8 +1,5 @@
 package com.example.guilherme.atividadex.model;
 
-import com.example.guilherme.atividadex.dao.FireStore;
-import com.google.firebase.database.DatabaseReference;
-
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 
@@ -15,9 +12,19 @@ public class Usuario {
     private String nome;
     private String endereco;
     private String telefone;
-    private String cpf;
     private long idSupervisonador;
     private long idResponsavel;
+
+    public Usuario() {
+    }
+
+    public Usuario(String email, String senha, String nome, String endereco, String telefone) {
+        this.email = email;
+        this.senha = senha;
+        this.nome = nome;
+        this.endereco = endereco;
+        this.telefone = telefone;
+    }
 
     /*public void salvar(){
         DatabaseReference reference = FireStore.getReference();
@@ -70,14 +77,6 @@ public class Usuario {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
     }
 
     public long getIdSupervisonador() {

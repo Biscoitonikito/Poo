@@ -21,7 +21,7 @@
     },
     {
       "id": "2:191529051650730938",
-      "lastPropertyId": "6:1019156842204241339",
+      "lastPropertyId": "9:6105665923566435394",
       "name": "Medicamento",
       "properties": [
         {
@@ -47,6 +47,18 @@
         {
           "id": "6:1019156842204241339",
           "name": "idUsuario"
+        },
+        {
+          "id": "7:9105538540017419115",
+          "name": "hora"
+        },
+        {
+          "id": "8:5082059597660296962",
+          "name": "minuto"
+        },
+        {
+          "id": "9:6105665923566435394",
+          "name": "lembrar"
         }
       ],
       "relations": []
@@ -93,10 +105,6 @@
           "name": "telefone"
         },
         {
-          "id": "5:8692050719329144466",
-          "name": "cpf"
-        },
-        {
           "id": "6:7571195707538546701",
           "name": "idSupervisonador"
         },
@@ -114,9 +122,25 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "5:7908533436010595390",
+      "lastPropertyId": "2:8403712464028652001",
+      "name": "Notificacao",
+      "properties": [
+        {
+          "id": "1:2098293686387869983",
+          "name": "id"
+        },
+        {
+          "id": "2:8403712464028652001",
+          "name": "conteudo"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "4:993468893758778483",
+  "lastEntityId": "5:7908533436010595390",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
@@ -124,7 +148,9 @@
   "modelVersionParserMinimum": 4,
   "retiredEntityUids": [],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    8692050719329144466
+  ],
   "retiredRelationUids": [],
   "version": 1
 }
