@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
+import android.widget.Toast;
 
 import com.example.guilherme.atividadex.R;
 import com.example.guilherme.atividadex.model.Medicamento;
@@ -16,33 +17,42 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 public class NotificacaoController {
 
     public static void notificar(List<Medicamento> medicamentoList, Context context, String corpo, NotificationManager mNotifyMgr, NotificationManager notificationManager){
-        if()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Tste";
-            String description = "Teste";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("Principal", name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificacaoManager = notificationManager;
-            notificacaoManager.createNotificationChannel(channel);
+        if(NotificacaoController.medicamentoALembrar(medicamentoList, context)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                CharSequence name = "Tste";
+                String description = "Teste";
+                int importance = NotificationManager.IMPORTANCE_DEFAULT;
+                NotificationChannel channel = new NotificationChannel("Principal", name, importance);
+                channel.setDescription(description);
+                // Register the channel with the system; you can't change the importance
+                // or other notification behaviors after this
+                NotificationManager notificacaoManager = notificationManager;
+                notificacaoManager.createNotificationChannel(channel);
 
-            NotificationCompat.Builder mBuilder =
-                    new NotificationCompat.Builder(context,channel.getId())
-                            .setSmallIcon(R.drawable.ic_launcher_foreground)
-                            .setContentTitle("Não Va Se Esquecer")
-                            .setContentText("Está na hora de olhar seus medicamentos");
+                NotificationCompat.Builder mBuilder =
+                        new NotificationCompat.Builder(context, channel.getId())
+                                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                                .setContentTitle("Não Va Se Esquecer")
+                                .setContentText("Está na hora de olhar seus medicamentos");
 
-            int mNotificationId = 001;
+                int mNotificationId = 001;
 
-            NotificationManager mNotifyMgra = mNotifyMgr;
+                NotificationManager mNotifyMgra = mNotifyMgr;
 
-            mNotifyMgra.notify(mNotificationId, mBuilder.build());
+                mNotifyMgra.notify(mNotificationId, mBuilder.build());
+            }
         }
     }
 
-    private medicamento
+    private static boolean medicamentoALembrar(List<Medicamento> medicamentoList, Context context){
+        for(int i = 0; i < medicamentoList.size(); i++){
+            if(medicamentoList.get(i).isLembrar()){
+                //Toast.makeText(context, ""+ medicamentoList.get(i).getNome(), Toast.LENGTH_LONG).show();
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 

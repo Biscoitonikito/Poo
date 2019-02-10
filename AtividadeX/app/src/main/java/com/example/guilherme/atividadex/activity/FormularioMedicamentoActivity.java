@@ -65,21 +65,38 @@ public class FormularioMedicamentoActivity extends AppCompatActivity {
         List<Logado> usuario = logadoBox.getAll();
         long id = usuario.get(0).getIdLogado();
 
-        if(medicamentoId != -1) {
-            if (MedicamentoController.criarMedicamento(this, nome, descricao, validade, periodo, id) != null) {
-                Medicamento remedio = MedicamentoController.criarMedicamento(this, nome, descricao, validade, periodo, id);
-                remedio.setId(medicamentoId);
-                medicamentoBox.put(remedio);
-                finish();
-            }
+        if(medicamentoId != -1){
+            Medicamento remedio = medicamentoBox.get(medicamentoId);
+            remedio = MedicamentoController.criarMedicamento(this, nome, descricao, validade, periodo, id, remedio);
+            Toast.makeText(this, ""+remedio.getHora()+ " " + remedio.getMinuto(), Toast.LENGTH_LONG).show();
+            medicamentoBox.put(remedio);
+            finish();
         }
         else{
-            if (MedicamentoController.criarMedicamento(this, nome, descricao, validade, periodo, id) != null) {
+            Medicamento remedio = null;
+            remedio = MedicamentoController.criarMedicamento(this, nome, descricao, validade, periodo, id, remedio);
+            Toast.makeText(this, ""+remedio.getHora()+ " " + remedio.getMinuto(), Toast.LENGTH_LONG).show();
+            medicamentoBox.put(remedio);
+            finish();
+        }
+
+
+        /*if (MedicamentoController.criarMedicamento(this, nome, descricao, validade, periodo, id) != null) {
+            if (medicamentoId != -1) {
+                Medicamento remedio = medicamentoBox.get(medicamentoId);
+                remedio.setId(medicamentoId);
+                int periodoInt = Integer.parseInt(periodo);
+                remedio.atualizaDados(nome, descricao, validade, periodoInt);
+                Toast.makeText(this, ""+remedio.getHora()+ " " + remedio.getMinuto(), Toast.LENGTH_LONG).show();
+                medicamentoBox.put(remedio);
+                finish();
+            } else {
                 Medicamento remedio = MedicamentoController.criarMedicamento(this, nome, descricao, validade, periodo, id);
+                Toast.makeText(this, ""+remedio.getHora()+ " " + remedio.getMinuto(), Toast.LENGTH_LONG).show();
                 medicamentoBox.put(remedio);
                 finish();
             }
-        }
+        }*/
     }
 
     private void validarSeExiste(){

@@ -1,15 +1,10 @@
 package com.example.guilherme.atividadex.controller;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
-import com.example.guilherme.atividadex.RVAdapter.MedicamentoAdapter;
-import com.example.guilherme.atividadex.model.Logado;
 import com.example.guilherme.atividadex.model.Medicamento;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -17,7 +12,7 @@ public class MedicamentoController {
 
     //METODOS ESPECIFICOS PARA CRIAÇAO DE REMEDIOS;
     public static Medicamento criarMedicamento(Context context, String nome, String descricao,
-                                               String validade, String periodo, long id){
+                                               String validade, String periodo, long id, Medicamento medicamento){
 
         switch (MedicamentoController.validarDados(nome,descricao,validade,periodo)){
             case 0:
@@ -25,7 +20,18 @@ public class MedicamentoController {
                 int hora = hora_minuto.get(Calendar.HOUR_OF_DAY);
                 int minuto = hora_minuto.get(Calendar.MINUTE);
                 int periodoInt = Integer.parseInt(periodo);
-                return new Medicamento(nome,descricao,validade,periodoInt,hora,minuto, id);
+
+                if(medicamento == null) {
+                    medicamento = new Medicamento(nome, descricao, validade, periodoInt, hora, minuto, id);
+                    medicamento.atualizaHora();
+                    //Toast.makeText(context, ""+hora+ " " + minuto, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(context, "a"+teste.getHora()+ " " + teste.getMinuto(), Toast.LENGTH_LONG).show();
+                    return medicamento;
+                }
+                else{
+                    medicamento.atualizaDados(nome,descricao,validade,periodoInt);
+                    return medicamento;
+                }
 
 
             case 1:
@@ -50,6 +56,25 @@ public class MedicamentoController {
             return 1;
         }
         return 1;
+    }
+
+
+
+    public static List<Medicamento> verificarHorario(List<Medicamento> medicamentoList, Context context){
+        Calendar hora_minuto = Calendar.getInstance();
+        int hora = hora_minuto.get(Calendar.HOUR_OF_DAY);
+        int minutoInicio = hora_minuto.get(Calendar.MINUTE);
+
+        for(int i = 0; i < medicamentoList.size(); i++){
+            if(medicamentoList.get(i).getHora() >= hora){
+                int medicamentoMinuto = medicamentoList.get(i).getMinuto();
+                if(medicamentoMinuto >= minutoInicio){
+                    medicamentoList.get(i).setLembrar();
+                }
+            }
+        }
+
+        return medicamentoList;
     }
 
 }

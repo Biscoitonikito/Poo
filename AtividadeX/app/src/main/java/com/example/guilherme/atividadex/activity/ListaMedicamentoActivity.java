@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.guilherme.atividadex.R;
 import com.example.guilherme.atividadex.RVAdapter.MedicamentoAdapter;
@@ -37,16 +39,24 @@ public class ListaMedicamentoActivity extends AppCompatActivity {
     private Usuario usuario;*/
 
     private RecyclerView recyclerViewMedicamentos;
+    private Box<Usuario> usuarioBox;
     private Box<Logado> logadoBox;
     private Box<Medicamento> medicamentoBox;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_medicamento);
 
         setupAll();
+        verificarHorario();
+        notificar();
         reloadData();
+        /*List<Logado> logado = logadoBox.getAll();
+        Usuario usuario = usuarioBox.get(logado.get(0).getIdLogado());
+        Toast.makeText(this, ""+ usuario.getTelefone(), Toast.LENGTH_LONG).show();*/
+
     }
 
     @Override
@@ -82,6 +92,7 @@ public class ListaMedicamentoActivity extends AppCompatActivity {
         /*auth = FireStore.getAuth();
         reference = FireStore.getReference();*/
 
+        usuarioBox = ((App) getApplication()).getBoxStore().boxFor(Usuario.class);
         logadoBox = ((App) getApplication()).getBoxStore().boxFor(Logado.class);
         medicamentoBox = ((App) getApplication()).getBoxStore().boxFor(Medicamento.class);
         recyclerViewMedicamentos = findViewById(R.id.recyclewView_principal);
@@ -100,38 +111,18 @@ public class ListaMedicamentoActivity extends AppCompatActivity {
         recyclerViewMedicamentos.setHasFixedSize(true);
     }
 
+    public void verificarHorario(){
+        List<Medicamento> medicamentoList = medicamentoBox.getAll();
+        List<Medicamento> newMedicamentoList = MedicamentoController.verificarHorario(medicamentoList, this);
+        //medicamentoBox.removeAll();
+        medicamentoBox.put(newMedicamentoList);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void notificar(){
         NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         NotificationManager notificationManager = getSystemService(NotificationManager.class);
-        NotificacaoController.notificar(this, "Está na hora de olhar seus medicamentos", mNotifyMgr, notificationManager);
-
-        /*
-        //NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            // Create the NotificationChannel, but only on API 26+ because
-            // the NotificationChannel class is new and not in the support library
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                CharSequence name = "Tste";
-                String description = "Teste";
-                int importance = NotificationManager.IMPORTANCE_DEFAULT;
-                NotificationChannel channel = new NotificationChannel("Principal", name, importance);
-                channel.setDescription(description);
-                // Register the channel with the system; you can't change the importance
-                // or other notification behaviors after this
-                NotificationManager notificationManager = getSystemService(NotificationManager.class);
-                notificationManager.createNotificationChannel(channel);
-
-                NotificationCompat.Builder mBuilder =
-                        new NotificationCompat.Builder(this,channel.getId())
-                                .setSmallIcon(R.drawable.ic_launcher_foreground)
-                                .setContentTitle("Não Va Se Esquecer")
-                                .setContentText("Está na hora de olhar seus medicamentos");
-
-                int mNotificationId = 001;
-
-                /*NotificationManager mNotifyMgr =
-                        (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-                mNotifyMgr.notify(mNotificationId, mBuilder.build());
-            }*/
+        List<Medicamento> medicamentoList = medicamentoBox.getAll();
+        NotificacaoController.notificar(medicamentoList,this, "Está na hora de olhar seus medicamentos", mNotifyMgr, notificationManager);
         }
 }

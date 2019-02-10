@@ -30,12 +30,27 @@ public class Medicamento {
     }
 
     public void atualizaHora(){
-        if(this.hora >= 24){
+        if(this.hora+ this.periodo >= 24){
             this.hora = (this.hora + this.periodo) - 24;
         }
         else{
             this.hora += this.periodo;
         }
+    }
+
+    public void atualizaPeriodo(int newHorario){
+        this.hora -= this.periodo;
+        this.periodo = newHorario;
+        atualizaHora();
+    }
+
+    public void atualizaDados(String nome, String descricao, String validade,int periodo){
+        this.nome = nome;
+        this.descricao = descricao;
+        this.validade = validade;
+        atualizaPeriodo(periodo);
+
+
     }
 
     public long getId() {
