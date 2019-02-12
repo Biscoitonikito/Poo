@@ -3,4 +3,11 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="colorAppBar">#6C1717</color>
+    <color name="colorItemMedicamento">#ae2626</color>
+    <color name="colorBackground">#B2ACAC</color>
+    <color name="colorHint">#E62955</color>
+    <color name="colorHintClick">#780000</color>
+    <color name="colorLine">#aa0000</color>
+    <color name="colorNavigationBackground">#2079ad</color>
 </resources>

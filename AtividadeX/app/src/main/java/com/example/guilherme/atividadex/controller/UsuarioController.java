@@ -11,25 +11,21 @@ import java.util.List;
 public class UsuarioController {
 
     //METODOS ESPECIFICOS DO CADASTRO
-    public static Usuario cadastrarUsuario(Context context,List<Usuario> usuarioList, String email, String senha, String confirmSenha, String nome, String endereco, String telefone){
+    //Recebe uma lista de usuarios, e passa os dados para o metodo validar dados que retorna
+    //null ou um usuario novo
+    public static Usuario cadastrarUsuario(List<Usuario> usuarioList, String email, String senha,
+                                           String confirmSenha, String nome, String endereco, String telefone){
 
         switch (UsuarioController.validarDados(usuarioList,email,senha,nome,confirmSenha,endereco,telefone)){
             case 0:
                 return new Usuario(email,senha,nome,endereco,telefone);
             case 1:
-                Toast.makeText(context, "USUÁRIO JA EXISTENTE", Toast.LENGTH_LONG).show();
-                break;
-            case 2:
-                Toast.makeText(context, "PREENCHA OS CAMPOS", Toast.LENGTH_LONG).show();
-                break;
-            case 3:
-                Toast.makeText(context, "SENHAS NÃO BATEM", Toast.LENGTH_LONG).show();
-                break;
-
+                return null;
         }
         return null;
     }
 
+    //Verifica se existe algum usuario com mesma infomação ou campos vazios
     private static int validarDados(List<Usuario> usuarioList, String email, String senha, String nome,
                                        String confirmSenha, String endereco, String telefone){
 
@@ -48,24 +44,27 @@ public class UsuarioController {
                                 if(senha.equals(confirmSenha)){
                                     return 0;
                                 }
-                                return 3;
+                                return 1;
                             }
-                            return 2;
+                            return 1;
                         }
-                        return 2;
+                        return 1;
                     }
-                    return 2;
+                    return 1;
                 }
-                return 2;
+                return 1;
             }
-            return 2;
+            return 1;
         }
-        return 2;
+        return 1;
     }
 
     //MÉTODOS PARA LOGIN
-    public static Logado loginUsuario(Context context, List<Usuario> usuarioList, String email, String senha) {
-        long id = UsuarioController.buscarUsuario(usuarioList,email,senha);
+
+    //Chama o metodo buscarUsuario que retorna um Id em caso de ser igual a 0 retorna usuario nulo em caso do usuario que esta tentando ser acessado não
+    //existir ou dados tiverem errado se não retorna o Id do usuario que foi achado
+    public static Logado loginUsuario(List<Usuario> usuarioList, String email, String senha) {
+        long id = UsuarioController.buscarUsuarioLogin(usuarioList,email,senha);
 
         if(id != 0) {
             Logado logado = new Logado();
@@ -73,19 +72,31 @@ public class UsuarioController {
             return logado;
         }
         else{
-            Toast.makeText(context, "DADOS INCORRETOS OU \n USUARIO NÃO EXISTE", Toast.LENGTH_LONG).show();
             return null;
         }
     }
 
-    private static long buscarUsuario(List<Usuario> usuarioList, String email, String senha){
+    //Verifica se existe algum usuario com o email ou senha passado e retorna o seu Id e em caso de
+    //não achar ele retorna zero
+    private static long buscarUsuarioLogin(List<Usuario> usuarioList, String email, String senha){
 
         for(int i = 0; i < usuarioList.size(); i++){
-            if(usuarioList.get(i).getEmail().equals(email) && usuarioList.get(i).getSenha().equals(senha)){
-                return usuarioList.get(i).getId();
+            if(usuarioList.get(i).getEmail().equals(email)){
+                if(usuarioList.get(i).getSenha().equals(senha)){
+                    return usuarioList.get(i).getId();
+                }
             }
         }
-
         return 0;
+    }
+
+    //Busca usuario pelo Id e o retorna;
+    public static Usuario buscarUsuarioId(List<Usuario> usuarioList, List<Logado> logadoList){
+        for(int i = 0; i < usuarioList.size(); i++){
+            if(usuarioList.get(i).getId() == logadoList.get(0).getIdLogado()) {
+                return usuarioList.get(i);
+            }
+        }
+        return null;
     }
 }

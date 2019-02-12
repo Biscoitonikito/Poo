@@ -21,7 +21,7 @@
     },
     {
       "id": "2:191529051650730938",
-      "lastPropertyId": "9:6105665923566435394",
+      "lastPropertyId": "11:2074267908876773319",
       "name": "Medicamento",
       "properties": [
         {
@@ -59,6 +59,10 @@
         {
           "id": "9:6105665923566435394",
           "name": "lembrar"
+        },
+        {
+          "id": "11:2074267908876773319",
+          "name": "esqueceu"
         }
       ],
       "relations": []
@@ -85,7 +89,7 @@
     },
     {
       "id": "4:993468893758778483",
-      "lastPropertyId": "9:2741307290919106536",
+      "lastPropertyId": "10:2318741753300427723",
       "name": "Usuario",
       "properties": [
         {
@@ -105,27 +109,23 @@
           "name": "telefone"
         },
         {
-          "id": "6:7571195707538546701",
-          "name": "idSupervisonador"
-        },
-        {
-          "id": "7:7796048188448247250",
-          "name": "idResponsavel"
-        },
-        {
           "id": "8:1258496877271893850",
           "name": "email"
         },
         {
           "id": "9:2741307290919106536",
           "name": "senha"
+        },
+        {
+          "id": "10:2318741753300427723",
+          "name": "idUsuarioVinculado"
         }
       ],
       "relations": []
     },
     {
       "id": "5:7908533436010595390",
-      "lastPropertyId": "2:8403712464028652001",
+      "lastPropertyId": "5:749837674348031561",
       "name": "Notificacao",
       "properties": [
         {
@@ -135,6 +135,18 @@
         {
           "id": "2:8403712464028652001",
           "name": "conteudo"
+        },
+        {
+          "id": "3:1771369190927568607",
+          "name": "idUsuarioOne"
+        },
+        {
+          "id": "4:6526868927435229521",
+          "name": "idUsuarioTwo"
+        },
+        {
+          "id": "5:749837674348031561",
+          "name": "answer"
         }
       ],
       "relations": []
@@ -149,7 +161,10 @@
   "retiredEntityUids": [],
   "retiredIndexUids": [],
   "retiredPropertyUids": [
-    8692050719329144466
+    8692050719329144466,
+    1683373503887488203,
+    7571195707538546701,
+    7796048188448247250
   ],
   "retiredRelationUids": [],
   "version": 1

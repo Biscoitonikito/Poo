@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">AtividadeX</string>
+    <string name="app_name">Monitor de Medicamento</string>
+    <string name="text_renember">Está na hora deste medicamento: </string>
+    <string name="tomei_o_medicamento">Tomei o medicamento</string>
+    <string name="email">Email</string>
+    <string name="senha">Senha</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="entrar">Entrar</string>
+    <string name="nome">Nome</string>
+    <string name="descri_o">Descrição</string>
+    <string name="validade">Validade</string>
+    <string name="intervalo_do_medicamento">Intervalo do Medicamento</string>
+    <string name="salvar_medicamento">Salvar Medicamento</string>
+    <string name="confirme_a_senha">Confirme a Senha</string>
+    <string name="endere_o">Endereço</string>
+    <string name="telefone">Telefone</string>
 </resources>

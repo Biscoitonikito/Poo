@@ -19,11 +19,9 @@ import java.util.Objects;
 
 import io.objectbox.Box;
 
-//TUDO QUE ESTA COMENTADO SÃO MUDANÇAS QUE FIZ PRA PODER ADPTAR A MUDANÇA DO PROJETO
+//TUDO QUE ESTA COMENTADO NO FIM DO CODIGO SÃO MUDANÇAS QUE FIZ PRA PODER ADPTAR A MUDANÇA DO PROJETO
 //RETIREI O FIREBASE E DEIXEI APENAS O OBJECT, PARA ASSIM PRIORIZAR SO A FUNCIONALIDADE DOS METODOS
 public class LoginActivity extends AppCompatActivity {
-
-    //private FirebaseAuth auth;
 
     private EditText emailLogin;
     private EditText senhaLogin;
@@ -35,18 +33,18 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         usuarioLogado();
     }
 
     private void setupAll() {
-        //auth = FireStore.getAuth();
+
         usuarioBox = ((App) getApplication()).getBoxStore().boxFor(Usuario.class);
         logadoBox = ((App) getApplication()).getBoxStore().boxFor(Logado.class);
         emailLogin = findViewById(R.id.email_loguin);
         senhaLogin = findViewById(R.id.senha_login);
     }
 
+    //Caso tenha algum usuario logado ele ja inicia a lista do medicamento com os dados dele
     private void usuarioLogado(){
         setupAll();
         if(!logadoBox.isEmpty()){
@@ -56,28 +54,39 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    //Inicia a tela de cadastro
     public void cadastrar(View view){
         Intent intent = new Intent(this, CadastrarActivity.class);
         startActivity(intent);
     }
 
-    public void logar(View view){
+    //Passa o email e senha para o metodo login da classe  UsuarioController, em caso de existir Usuario
+    //Com aquela informações e retornado o Id dele e colocado na Box de Logado se não e retornado null e um Toast
+    //exibido
+    public void logar(View view) {
         String email = emailLogin.getText().toString();
         String senha = senhaLogin.getText().toString();
         List<Usuario> usuarioList = usuarioBox.getAll();
 
-        if(UsuarioController.loginUsuario(this,usuarioList,email,senha) != null){
-            logadoBox.put(Objects.requireNonNull(UsuarioController.loginUsuario(this, usuarioList, email, senha)));
+        if (UsuarioController.loginUsuario(usuarioList, email, senha) != null) {
+            logadoBox.put(Objects.requireNonNull(UsuarioController.loginUsuario(usuarioList, email, senha)));
             Toast.makeText(this, "LOGIN CONCLUIDO", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(LoginActivity.this, ListaMedicamentoActivity.class);
             startActivity(intent);
             finish();
         }
+        else {
+            Toast.makeText(this, "DADOS INCORRETOS OU \n USUARIO NÃO EXISTE", Toast.LENGTH_LONG).show();
+        }
     }
+
 }
 
 
 /*
+    private FirebaseAuth auth;
+    auth = FireStore.getAuth();
+
     private void validarLogin(String email, String senha){
 
         auth.signInWithEmailAndPassword(email, senha).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

@@ -3,6 +3,7 @@ package com.example.guilherme.atividadex.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,7 +21,7 @@ import java.util.Objects;
 
 import io.objectbox.Box;
 
-//TUDO QUE ESTA COMENTADO SÃO MUDANÇAS QUE FIZ PRA PODER ADPTAR A MUDANÇA DO PROJETO
+//TUDO QUE ESTA COMENTADO NO FIM DO CODIGO SÃO MUDANÇAS QUE FIZ PRA PODER ADPTAR A MUDANÇA DO PROJETO
 //RETIREI O FIREBASE E DEIXEI APENAS O OBJECT, PARA ASSIM PRIORIZAR SO A FUNCIONALIDADE DOS METODOS
 public class FormularioMedicamentoActivity extends AppCompatActivity {
 
@@ -28,8 +29,6 @@ public class FormularioMedicamentoActivity extends AppCompatActivity {
     private EditText editDescricao;
     private EditText editValidade;
     private EditText editPeriodo;
-
-    //private DatabaseReference reference;
 
     private long medicamentoId;
     private Medicamento medicamento;
@@ -45,8 +44,38 @@ public class FormularioMedicamentoActivity extends AppCompatActivity {
         validarSeExiste();
     }
 
+    //Este metodo e o abaixo dele sobreescrevem o metodo de volta, para que quando ele pare de criar um
+    //Medicamento a tela que lista os medicamento seja atualizada
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(medicamentoId == -1) {
+            switch (item.getItemId()) {
+                case android.R.id.home:
+                    startActivity(new Intent(this, ListaMedicamentoActivity.class));
+                    finish();
+                    break;
+                default:
+                    break;
+            }
+        }
+        else{
+            finish();
+        }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed(){
+        if(medicamentoId == -1) {
+            startActivity(new Intent(this, ListaMedicamentoActivity.class));
+            finish();
+        }
+        else{
+            finish();
+        }
+    }
+
     private void setupAll(){
-        //reference = FireStore.getReference();
         logadoBox = ((App) getApplication()).getBoxStore().boxFor(Logado.class);
         medicamentoBox = ((App)getApplication()).getBoxStore().boxFor(Medicamento.class);
         editNome = findViewById(R.id.novo_medicamento_nome);
@@ -57,7 +86,13 @@ public class FormularioMedicamentoActivity extends AppCompatActivity {
         medicamentoId = intent.getLongExtra("medicamentoId", -1);
     }
 
+    //Verifica primeiro se chegou a essa tela por clica em um medicamento ja existente
+    //Trazendo o Id do medicamento que foi clicado, se não foi por clica em um ja existente ele retorna -1
+    //Em caso de medicamento ja existente ele pega o remedio que foi clicado se não ele cria um medicamento nulo
+    //e passa o medicamento para o metodo criarMedicamento, apos o metodo um medicamento é retornado
+    //se for nulo e exibido um toast se não e cadastrado o medicamento
     public void criarMedicamento(View view){
+        Medicamento medicamento;
         String nome = editNome.getText().toString();
         String descricao = editDescricao.getText().toString();
         String validade = editValidade.getText().toString();
@@ -66,39 +101,25 @@ public class FormularioMedicamentoActivity extends AppCompatActivity {
         long id = usuario.get(0).getIdLogado();
 
         if(medicamentoId != -1){
-            Medicamento remedio = medicamentoBox.get(medicamentoId);
-            remedio = MedicamentoController.criarMedicamento(this, nome, descricao, validade, periodo, id, remedio);
-            Toast.makeText(this, ""+remedio.getHora()+ " " + remedio.getMinuto(), Toast.LENGTH_LONG).show();
-            medicamentoBox.put(remedio);
-            finish();
+            medicamento = medicamentoBox.get(medicamentoId);
         }
         else{
-            Medicamento remedio = null;
-            remedio = MedicamentoController.criarMedicamento(this, nome, descricao, validade, periodo, id, remedio);
-            Toast.makeText(this, ""+remedio.getHora()+ " " + remedio.getMinuto(), Toast.LENGTH_LONG).show();
-            medicamentoBox.put(remedio);
-            finish();
+            medicamento = null;
         }
 
+        medicamento = MedicamentoController.criarMedicamento(nome, descricao, validade, periodo, id, medicamento);
 
-        /*if (MedicamentoController.criarMedicamento(this, nome, descricao, validade, periodo, id) != null) {
-            if (medicamentoId != -1) {
-                Medicamento remedio = medicamentoBox.get(medicamentoId);
-                remedio.setId(medicamentoId);
-                int periodoInt = Integer.parseInt(periodo);
-                remedio.atualizaDados(nome, descricao, validade, periodoInt);
-                Toast.makeText(this, ""+remedio.getHora()+ " " + remedio.getMinuto(), Toast.LENGTH_LONG).show();
-                medicamentoBox.put(remedio);
-                finish();
-            } else {
-                Medicamento remedio = MedicamentoController.criarMedicamento(this, nome, descricao, validade, periodo, id);
-                Toast.makeText(this, ""+remedio.getHora()+ " " + remedio.getMinuto(), Toast.LENGTH_LONG).show();
-                medicamentoBox.put(remedio);
-                finish();
-            }
-        }*/
+        if(medicamento == null){
+            Toast.makeText(this, "PREENCHA OS CAMPOS", Toast.LENGTH_LONG).show();
+        }
+        else{
+            medicamentoBox.put(medicamento);
+            startActivity(new Intent(this, ListaMedicamentoActivity.class));
+            finish();
+        }
     }
 
+    //Verifica se clicou em um medicamento ja existente e chama preencherCampos
     private void validarSeExiste(){
         if(medicamentoId  != -1){
             medicamento = medicamentoBox.get(medicamentoId);
@@ -106,6 +127,7 @@ public class FormularioMedicamentoActivity extends AppCompatActivity {
         }
     }
 
+    //preenche os campos da activity
     private void preencerCampos(){
         editNome.setText(medicamento.getNome());
         editDescricao.setText(medicamento.getDescricao());
@@ -116,6 +138,9 @@ public class FormularioMedicamentoActivity extends AppCompatActivity {
 }
 
 /*
+private DatabaseReference reference;
+reference = FireStore.getReference();
+
 try {
         reference.child("usuario/medicamentos").child(medicamento.getNome()).setValue(medicamento);
         Toast.makeText(this, "DEU CERTO", Toast.LENGTH_LONG).show();

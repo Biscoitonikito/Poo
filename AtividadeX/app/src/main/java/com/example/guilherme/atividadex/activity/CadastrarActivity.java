@@ -16,13 +16,9 @@ import java.util.Objects;
 
 import io.objectbox.Box;
 
-//TUDO QUE ESTA COMENTADO SÃO MUDANÇAS QUE FIZ PRA PODER ADPTAR A MUDANÇA DO PROJETO
+//TUDO QUE ESTA COMENTADO NO FIM DO CODIGO SÃO MUDANÇAS QUE FIZ PRA PODER ADPTAR A MUDANÇA DO PROJETO
 //RETIREI O FIREBASE E DEIXEI APENAS O OBJECT, PARA ASSIM PRIORIZAR SO A FUNCIONALIDADE DOS METODOS
 public class CadastrarActivity extends AppCompatActivity {
-
-    //private DatabaseReference reference;
-    //private FirebaseAuth auth;
-    //App app = (App) getApplication();
 
     private EditText emailUsu;
     private EditText nomeUsu;
@@ -37,15 +33,13 @@ public class CadastrarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastrar);
+        getSupportActionBar().setTitle("Cadastrar Usuário");
         setupAll();
     }
 
 
     //Inicializa todas as variaveis que irão ser utilizadas
     private void setupAll(){
-        //reference = FireStore.getReference();
-        //auth = FireStore.getAuth();
-
         usuarioBox = ((App) getApplication()).getBoxStore().boxFor(Usuario.class);
         emailUsu = findViewById(R.id.email_usuario);
         nomeUsu = findViewById(R.id.nome_usuario);
@@ -57,6 +51,7 @@ public class CadastrarActivity extends AppCompatActivity {
 
     //Coloca o usuario dentro da box e encerra a activity
     public void cadastrar(View view){
+        //Pega todos os dados dos campos
         String email = emailUsu.getText().toString();
         String nome = nomeUsu.getText().toString();
         String senha = senhaUsu.getText().toString();
@@ -65,16 +60,29 @@ public class CadastrarActivity extends AppCompatActivity {
         String telefone = telUsu.getText().toString();
         List<Usuario> usuarioList = usuarioBox.getAll();
 
-        if(UsuarioController.cadastrarUsuario(this,usuarioList,email,senha,confirmSenha,nome, endereco,telefone)!= null){
+        //Repassa ao controller os dados, este metodo retorna usuarios nulos caso tenha algo errado
+        //Se não retorna um usuario novo, em caso de nulo o Toast e mostrado, ja no outro caso ele adiciona a box
+        if(UsuarioController.cadastrarUsuario(usuarioList,email,senha,confirmSenha,nome, endereco,telefone)!= null){
             Toast.makeText(this, "CADASTRO CONCLUIDO", Toast.LENGTH_LONG).show();
-            usuarioBox.put(Objects.requireNonNull(UsuarioController.cadastrarUsuario(this, usuarioList, email, senha, confirmSenha, nome,
+            usuarioBox.put(Objects.requireNonNull(UsuarioController.cadastrarUsuario(usuarioList, email, senha, confirmSenha, nome,
                     endereco, telefone)));
             finish();
+        }
+        else{
+            Toast.makeText(this, "USUARIO EXISTENTE OU CAMPOS \nPREENCHIDOS INCORRETAMENTES", Toast.LENGTH_LONG).show();
         }
     }
 
 
-    /*public void erroCadastro(Task<AuthResult> task){
+    /*private DatabaseReference reference;
+    private FirebaseAuth auth;
+    App app = (App) getApplication();
+
+    reference = FireStore.getReference();
+    auth = FireStore.getAuth();
+
+
+    public void erroCadastro(Task<AuthResult> task){
         String erro = "";
         try{
             throw Objects.requireNonNull(task.getException());

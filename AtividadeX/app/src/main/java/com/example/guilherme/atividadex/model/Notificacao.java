@@ -7,7 +7,20 @@ import io.objectbox.annotation.Id;
 public class Notificacao {
     @Id
     private long id;
+    private long idUsuarioOne;
+    private long idUsuarioTwo;
     private String conteudo;
+    private boolean answer;
+
+    Notificacao(){
+
+    }
+
+    public Notificacao(long idUsuarioOne, long idUsuarioTwo, String conteudo) {
+        this.idUsuarioOne = idUsuarioOne;
+        this.idUsuarioTwo = idUsuarioTwo;
+        this.conteudo = conteudo;
+    }
 
     public long getId() {
         return id;
@@ -17,11 +30,35 @@ public class Notificacao {
         this.id = id;
     }
 
+    public long getIdUsuarioOne() {
+        return idUsuarioOne;
+    }
+
+    public void setIdUsuarioOne(long idUsuarioOne) {
+        this.idUsuarioOne = idUsuarioOne;
+    }
+
+    public long getIdUsuarioTwo() {
+        return idUsuarioTwo;
+    }
+
+    public void setIdUsuarioTwo(long idUsuarioTwo) {
+        this.idUsuarioTwo = idUsuarioTwo;
+    }
+
     public String getConteudo() {
         return conteudo;
     }
 
     public void setConteudo(String conteudo) {
         this.conteudo = conteudo;
+    }
+
+    public boolean isAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(boolean answerOne) {
+        this.answer = answerOne;
     }
 }

@@ -14,6 +14,7 @@ public class Medicamento {
     private int hora;
     private  int minuto;
     private boolean lembrar;
+    private boolean esqueceu;
     private long idUsuario;
 
     public Medicamento() {}
@@ -26,6 +27,7 @@ public class Medicamento {
         this.hora = hora;
         this.minuto = minuto;
         this.lembrar = false;
+        this.esqueceu = false;
         this.idUsuario = id;
     }
 
@@ -38,7 +40,7 @@ public class Medicamento {
         }
     }
 
-    public void atualizaPeriodo(int newHorario){
+    private void atualizaPeriodo(int newHorario){
         this.hora -= this.periodo;
         this.periodo = newHorario;
         atualizaHora();
@@ -51,6 +53,33 @@ public class Medicamento {
         atualizaPeriodo(periodo);
 
 
+    }
+
+    public void verificarHorario(int hora, int minuto){
+        if(this.hora == hora){
+            if(this.minuto == minuto){
+                if(!this.isLembrar()) {
+                    this.setLembrar();
+                }
+            }
+        }
+    }
+
+    public void esqueceuHorario(int hora, int minuto){
+        if(this.hora <= hora){
+            if(this.minuto < minuto) {
+                if (this.isLembrar()) {
+                    this.setLembrar();
+                    this.setEsqueceu();
+                }
+            }
+        }
+    }
+
+    public void lembrarMedicamento(){
+        if(this.isLembrar()) {
+            this.setLembrar();
+        }
     }
 
     public long getId() {
@@ -117,5 +146,11 @@ public class Medicamento {
 
     public void setLembrar() {
         this.lembrar = !lembrar;
+    }
+
+    public boolean isEsqueceu() { return esqueceu;}
+
+    public void setEsqueceu(){
+        this.esqueceu = !esqueceu;
     }
 }

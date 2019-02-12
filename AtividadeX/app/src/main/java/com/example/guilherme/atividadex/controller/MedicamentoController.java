@@ -10,71 +10,112 @@ import java.util.List;
 
 public class MedicamentoController {
 
-    //METODOS ESPECIFICOS PARA CRIAÇAO DE REMEDIOS;
-    public static Medicamento criarMedicamento(Context context, String nome, String descricao,
+    //METODOS ESPECIFICOS PARA CRIAÇAO E EDIÇÃO DE MEDICAMENTOS
+    //Este metodo recebe os dados entre eles um medicamento, pega-se a hora e minuto atual
+    // e verifica-se se o medicamento recebido e nulo em caso de ser
+    //nulo ele cria um novo medicamento com as informações recebidas se não ele atualiza
+    //os dados do medicamento ja existente
+    public static Medicamento criarMedicamento(String nome, String descricao,
                                                String validade, String periodo, long id, Medicamento medicamento){
 
-        switch (MedicamentoController.validarDados(nome,descricao,validade,periodo)){
-            case 0:
-                Calendar hora_minuto = Calendar.getInstance();
-                int hora = hora_minuto.get(Calendar.HOUR_OF_DAY);
-                int minuto = hora_minuto.get(Calendar.MINUTE);
-                int periodoInt = Integer.parseInt(periodo);
+        if(MedicamentoController.validarDados(nome,descricao,validade,periodo)) {
+            Calendar hora_minuto = Calendar.getInstance();
+            int hora = hora_minuto.get(Calendar.HOUR_OF_DAY);
+            int minuto = hora_minuto.get(Calendar.MINUTE);
+            int periodoInt = Integer.parseInt(periodo);
 
-                if(medicamento == null) {
-                    medicamento = new Medicamento(nome, descricao, validade, periodoInt, hora, minuto, id);
-                    medicamento.atualizaHora();
-                    //Toast.makeText(context, ""+hora+ " " + minuto, Toast.LENGTH_LONG).show();
-                    //Toast.makeText(context, "a"+teste.getHora()+ " " + teste.getMinuto(), Toast.LENGTH_LONG).show();
-                    return medicamento;
-                }
-                else{
-                    medicamento.atualizaDados(nome,descricao,validade,periodoInt);
-                    return medicamento;
-                }
-
-
-            case 1:
-                Toast.makeText(context, "PREENCHA OS CAMPOS", Toast.LENGTH_LONG).show();
-                break;
+            if (medicamento == null) {
+                medicamento = new Medicamento(nome, descricao, validade, periodoInt, hora, minuto, id);
+                medicamento.atualizaHora();
+                return medicamento;
+            } else {
+                medicamento.atualizaDados(nome, descricao, validade, periodoInt);
+                return medicamento;
+            }
         }
-        return null;
+        else{
+            return null;
+        }
+
     }
 
-    private static int validarDados(String nome, String descricao, String validade, String periodo){
+    //Verifica se a algum campo vazio
+    private static boolean validarDados(String nome, String descricao, String validade, String periodo){
 
         if(!nome.isEmpty()){
             if (!descricao.isEmpty()){
                 if (!validade.isEmpty()){
                     if(!periodo.isEmpty()){
-                        return 0;
+                        return true;
                     }
-                    return 1;
+                    return false;
                 }
-                return 1;
+                return false;
             }
-            return 1;
+            return false;
         }
-        return 1;
+        return false;
     }
 
 
+    //METODOS PARA LISTA MEDICAMENTO PARA ALTERAÇÕES DE ESTADO;
 
-    public static List<Medicamento> verificarHorario(List<Medicamento> medicamentoList, Context context){
+    //Recebe uma lista de medicamentos e repassa todos os elementos para o metodo verificaHorario de medicamento
+    //E retorna uma lista atualizada
+    public static List<Medicamento> verificarHorario(List<Medicamento> medicamentoList){
         Calendar hora_minuto = Calendar.getInstance();
         int hora = hora_minuto.get(Calendar.HOUR_OF_DAY);
-        int minutoInicio = hora_minuto.get(Calendar.MINUTE);
+        int minuto = hora_minuto.get(Calendar.MINUTE);
 
         for(int i = 0; i < medicamentoList.size(); i++){
-            if(medicamentoList.get(i).getHora() >= hora){
-                int medicamentoMinuto = medicamentoList.get(i).getMinuto();
-                if(medicamentoMinuto >= minutoInicio){
-                    medicamentoList.get(i).setLembrar();
-                }
-            }
+            medicamentoList.get(i).verificarHorario(hora,minuto);
         }
 
         return medicamentoList;
     }
 
+    //Recebe uma lista de medicamentos e repassa todos os elementos para o metodo verificaEsqueceu de medicamento
+    //E retorna uma lista atualizada
+    public static List<Medicamento> verificaEsqueceu(List<Medicamento> medicamentoList){
+        Calendar hora_minuto = Calendar.getInstance();
+        int hora = hora_minuto.get(Calendar.HOUR_OF_DAY);
+        int minuto = hora_minuto.get(Calendar.MINUTE);
+
+        for(int i = 0; i < medicamentoList.size(); i++){
+            medicamentoList.get(i).esqueceuHorario(hora, minuto);
+        }
+
+        return medicamentoList;
+    }
+
+    //Recebe uma lista de medicamentos e repassa todos os elementos para o metodo lembraMedicamento de medicamento
+    //E retorna uma lista atualizada
+    public static List<Medicamento> lembrarMedicamento(List<Medicamento> medicamentoList){
+        for(int i = 0; i < medicamentoList.size(); i++){
+            medicamentoList.get(i).lembrarMedicamento();
+        }
+
+        return medicamentoList;
+    }
+
+    //Em caso de algum medicamento estiver em estado de lembrar true retorna true
+    public static boolean medicamentoALembrar(List<Medicamento> medicamentoList, Context context){
+        for(int i = 0; i < medicamentoList.size(); i++){
+            if(medicamentoList.get(i).isLembrar()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Recebe a lista de medicamentos e em caso de ao menos um estiver em estado de lembrar como true,
+    //retorna true
+    public static boolean lembrar(List<Medicamento> medicamentoList) {
+        for (int i = 0; i < medicamentoList.size(); i++) {
+            if (medicamentoList.get(i).isLembrar()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

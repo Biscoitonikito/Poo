@@ -21,7 +21,7 @@
     },
     {
       "id": "2:191529051650730938",
-      "lastPropertyId": "8:5082059597660296962",
+      "lastPropertyId": "11:2074267908876773319",
       "name": "Medicamento",
       "properties": [
         {
@@ -55,6 +55,14 @@
         {
           "id": "8:5082059597660296962",
           "name": "minuto"
+        },
+        {
+          "id": "9:6105665923566435394",
+          "name": "lembrar"
+        },
+        {
+          "id": "11:2074267908876773319",
+          "name": "esqueceu"
         }
       ],
       "relations": []
@@ -145,7 +153,8 @@
   "retiredEntityUids": [],
   "retiredIndexUids": [],
   "retiredPropertyUids": [
-    8692050719329144466
+    8692050719329144466,
+    1683373503887488203
   ],
   "retiredRelationUids": [],
   "version": 1

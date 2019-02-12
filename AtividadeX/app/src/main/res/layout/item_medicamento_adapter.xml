@@ -2,50 +2,94 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_medicamento"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="10dp"
     android:layout_marginTop="15dp"
     android:layout_marginEnd="10dp"
     android:layout_marginBottom="15dp"
-    android:background="@color/colorPrimaryDark"
-    android:backgroundTint="@color/colorPrimary"
+    android:backgroundTint="@color/colorItemMedicamento"
     android:orientation="vertical"
-    app:cardCornerRadius="50dp"
-    tools:context=".RVAdapters.MedicamentoAdapter">
+    app:cardCornerRadius="50dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:background="@color/colorPrimary"
-        android:orientation="vertical"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/nome_medicamento"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="24sp" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/descricao_medicamento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="24sp" />
+            <ImageView
+                android:id="@+id/ic_medicamento_adapter"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_weight="2"
+                android:src="@drawable/ic_item_medicamento"
+                tools:ignore="ContentDescription" />
 
-        <TextView
-            android:id="@+id/validade_medicamento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="24sp" />
+            <LinearLayout
+                android:id="@+id/linear_medicamento"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="4"
+                android:backgroundTint="@android:color/transparent"
+                android:orientation="vertical"
+                android:paddingBottom="15dp">
+
+                <TextView
+                    android:id="@+id/lembrete_medicamento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_renember"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBackground"
+                    android:textSize="24sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/nome_medicamento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBackground"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/descricao_medicamento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBackground"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/validade_medicamento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBackground"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/proxima_hora_medicamento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBackground"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

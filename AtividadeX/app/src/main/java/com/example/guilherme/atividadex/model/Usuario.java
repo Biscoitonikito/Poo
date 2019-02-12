@@ -12,8 +12,7 @@ public class Usuario {
     private String nome;
     private String endereco;
     private String telefone;
-    private long idSupervisonador;
-    private long idResponsavel;
+    private long idUsuarioVinculado;
 
     public Usuario() {
     }
@@ -25,11 +24,6 @@ public class Usuario {
         this.endereco = endereco;
         this.telefone = telefone;
     }
-
-    /*public void salvar(){
-        DatabaseReference reference = FireStore.getReference();
-        reference.child("usuario").child(String.valueOf(getId())).setValue(this)
-    }*/
 
     public long getId() {
         return id;
@@ -79,19 +73,11 @@ public class Usuario {
         this.telefone = telefone;
     }
 
-    public long getIdSupervisonador() {
-        return idSupervisonador;
+    public long getIdUsuarioVinculado() {
+        return idUsuarioVinculado;
     }
 
-    public void setIdSupervisonador(long idSupervisonador) {
-        this.idSupervisonador = idSupervisonador;
-    }
-
-    public long getIdResponsavel() {
-        return idResponsavel;
-    }
-
-    public void setIdResponsavel(long idResponsavel) {
-        this.idResponsavel = idResponsavel;
+    public void setIdUsuarioVinculado(long idUsuarioVinculado) {
+        this.idUsuarioVinculado = idUsuarioVinculado;
     }
 }

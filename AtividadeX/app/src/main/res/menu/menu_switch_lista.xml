@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_lista"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="Lista Medicamento"
+        tools:ignore="UnusedAttribute" />
+
+    <item
+        android:id="@+id/navigation_usuario"
+        android:icon="@android:drawable/ic_menu_myplaces"
+        android:title="Usuário"
+        android:visible="true"/>
+
+</menu>
