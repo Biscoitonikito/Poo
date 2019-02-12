@@ -6,18 +6,17 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
-import android.widget.Toast;
 
 import com.example.guilherme.atividadex.R;
 import com.example.guilherme.atividadex.model.Medicamento;
 import com.example.guilherme.atividadex.model.Notificacao;
 import com.example.guilherme.atividadex.model.Usuario;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static android.content.Context.NOTIFICATION_SERVICE;
+import io.objectbox.Box;
+import io.objectbox.BoxStore;
 
 public class NotificacaoController {
 
@@ -49,33 +48,50 @@ public class NotificacaoController {
         }
     }
 
-
-
-    public static Notificacao gerarNovoVinculo(long idUsuarioOne, long idUsuarioTwo, String nome){
-        String corpo = "O usuário(a) " + nome + " de codigo" + idUsuarioOne + " quer saber se quer se vincular a ele?";
-        return new Notificacao(idUsuarioOne,idUsuarioTwo,corpo);
+    //Gera um pedido de vinculo
+    public static Notificacao gerarNovoVinculo(List<Usuario> list, long idUsuarioOne, String idUsuarioTwo, String nome){
+        String idLongOne = String.valueOf(idUsuarioOne);
+        if(!idUsuarioTwo.isEmpty()) {
+            if(!idLongOne.equals(idUsuarioTwo)) {
+                long idLongTwo = Long.parseLong(idUsuarioTwo);
+                if (UsuarioController.buscarUsuarioId(list, idLongTwo) != null) {
+                    String corpo = "O usuário(a) " + nome + " de codigo " + idUsuarioOne + " quer saber se quer se vincular a ele?";
+                    return new Notificacao(idUsuarioOne, idLongTwo, corpo);
+                }
+                return null;
+            }
+            return null;
+        }
+        return null;
     }
 
 
 
-    public static List<Usuario> answerVinculo(Context context, List<Notificacao> notificacaoList, long id, List<Usuario> usuarioList) {
+    //Esse metodo não  conseguir uma forma de escapar de passar a BoxStore
+    //Neste metodo ele infla uma pergunta em caso de afirmativo vincula os 2 usuarios
+    public static void answerVinculo(Context context, BoxStore boxStore, long id) {
+        Box<Usuario> usuarioBox = boxStore.boxFor(Usuario.class);
+        Box<Notificacao> notificacaoBox = boxStore.boxFor(Notificacao.class);
+        List<Usuario> usuarioList = usuarioBox.getAll();
+        List<Notificacao> notificacaoList = notificacaoBox.getAll();
+
         Notificacao notificacao = NotificacaoController.verificarPedidoVinculo(notificacaoList, id);
         if(notificacao !=null) {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-
             builder.setTitle("Pedido de Vínculo:");
             builder.setMessage(Objects.requireNonNull(notificacao).getConteudo());
             builder.setPositiveButton("Sim", (dialogInterface, i) -> {
-                confirmaVinculo(usuarioList, notificacao.getIdUsuarioOne(),notificacao.getIdUsuarioTwo());
+                notificacaoBox.remove(notificacao);
+                usuarioBox.removeAll();
+                usuarioBox.put(UsuarioController.vincular(usuarioList,notificacao));
+
             });
-            builder.setNegativeButton("NÃO", (dialogInterface, i)->{
-                notificacao.setAnswer(false);
-            });
+            builder.setNegativeButton("NÃO", (dialogInterface, i)-> notificacaoBox.remove(notificacao));
             builder.create().show();
         }
-        return usuarioList;
     }
 
+    //Busca o pedido de vinculo relacionado a cada usuario
     private static Notificacao verificarPedidoVinculo(List<Notificacao> notificacaoList, long id){
         for(int i = 0; i< notificacaoList.size(); i++){
             if(notificacaoList.get(i).getIdUsuarioTwo()== id){
@@ -83,18 +99,6 @@ public class NotificacaoController {
             }
         }
         return null;
-    }
-
-    private static List<Usuario> confirmaVinculo(List<Usuario> usuarioList, long idOne, long idTwo){
-        for(int i = 0; i < usuarioList.size(); i++){
-            if(usuarioList.get(i).getId() == idOne){
-                usuarioList.get(i).setIdUsuarioVinculado(idTwo);
-            }
-            if(usuarioList.get(i).getId() == idTwo){
-                usuarioList.get(i).setIdUsuarioVinculado(idOne);
-            }
-        }
-        return usuarioList;
     }
 
 

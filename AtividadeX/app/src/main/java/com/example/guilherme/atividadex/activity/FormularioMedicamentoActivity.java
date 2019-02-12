@@ -75,6 +75,7 @@ public class FormularioMedicamentoActivity extends AppCompatActivity {
         }
     }
 
+    //Inicializa todas as variaveis que irão ser utilizadas
     private void setupAll(){
         logadoBox = ((App) getApplication()).getBoxStore().boxFor(Logado.class);
         medicamentoBox = ((App)getApplication()).getBoxStore().boxFor(Medicamento.class);

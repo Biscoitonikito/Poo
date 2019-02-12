@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.example.guilherme.atividadex.model.Logado;
+import com.example.guilherme.atividadex.model.Notificacao;
 import com.example.guilherme.atividadex.model.Usuario;
 
 import java.util.List;
@@ -90,7 +91,7 @@ public class UsuarioController {
         return 0;
     }
 
-    //Busca usuario pelo Id e o retorna;
+    //Busca usuario pelo Id do Usuario logado e o retorna;
     public static Usuario buscarUsuarioId(List<Usuario> usuarioList, List<Logado> logadoList){
         for(int i = 0; i < usuarioList.size(); i++){
             if(usuarioList.get(i).getId() == logadoList.get(0).getIdLogado()) {
@@ -98,5 +99,28 @@ public class UsuarioController {
             }
         }
         return null;
+    }
+
+    //Procura um ususario pelo id digitado
+    public static Usuario buscarUsuarioId(List<Usuario> usuarioList, long id){
+        for(int i = 0; i < usuarioList.size(); i++){
+            if(usuarioList.get(i).getId() == id) {
+                return usuarioList.get(i);
+            }
+        }
+        return null;
+    }
+
+    //Vincula 2 usuarios setando o atributo deles de vinculado com o Id de cada
+    public  static List<Usuario> vincular(List<Usuario> usuarioList, Notificacao notificacao){
+        for (int i = 0; i < usuarioList.size(); i++) {
+            if (usuarioList.get(i).getId() == notificacao.getIdUsuarioOne()) {
+                    usuarioList.get(i).setIdUsuarioVinculado(notificacao.getIdUsuarioTwo());
+            }
+            if (usuarioList.get(i).getId() == notificacao.getIdUsuarioTwo()) {
+                    usuarioList.get(i).setIdUsuarioVinculado(notificacao.getIdUsuarioOne());
+            }
+        }
+        return usuarioList;
     }
 }

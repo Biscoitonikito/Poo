@@ -10,7 +10,6 @@ public class Notificacao {
     private long idUsuarioOne;
     private long idUsuarioTwo;
     private String conteudo;
-    private boolean answer;
 
     Notificacao(){
 
@@ -52,13 +51,5 @@ public class Notificacao {
 
     public void setConteudo(String conteudo) {
         this.conteudo = conteudo;
-    }
-
-    public boolean isAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(boolean answerOne) {
-        this.answer = answerOne;
     }
 }

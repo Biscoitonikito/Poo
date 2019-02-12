@@ -23,6 +23,7 @@ public class Usuario {
         this.nome = nome;
         this.endereco = endereco;
         this.telefone = telefone;
+        this.idUsuarioVinculado = 0;
     }
 
     public long getId() {

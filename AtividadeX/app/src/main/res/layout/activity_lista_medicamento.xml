@@ -168,6 +168,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Código do Usuário"
+            android:inputType="number"
             android:visibility="gone" />
     </android.support.design.widget.TextInputLayout>
 

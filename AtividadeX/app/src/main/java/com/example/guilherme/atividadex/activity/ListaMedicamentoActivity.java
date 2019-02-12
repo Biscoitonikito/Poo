@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.guilherme.atividadex.R;
 import com.example.guilherme.atividadex.RVAdapter.MedicamentoAdapter;
@@ -32,6 +33,7 @@ import java.util.List;
 import java.util.Objects;
 
 import io.objectbox.Box;
+import io.objectbox.BoxStore;
 
 //TUDO QUE ESTA COMENTADO NO FIM DO CODIGO SÃO MUDANÇAS QUE FIZ PRA PODER ADPTAR A MUDANÇA DO PROJETO
 //RETIREI O FIREBASE E DEIXEI APENAS O OBJECT, PARA ASSIM PRIORIZAR SO A FUNCIONALIDADE DOS METODOS
@@ -67,6 +69,7 @@ public class ListaMedicamentoActivity extends AppCompatActivity {
         verificarEsqueceuMedicamento();
         ativarFab();
         notificar();
+        pedidoDeVinculo();
         reloadData();
 
     }
@@ -100,6 +103,7 @@ public class ListaMedicamentoActivity extends AppCompatActivity {
         finish();
     }
 
+    //Inicializa todas as variaveis que irão ser utilizadas
     private void setupAll() {
         Objects.requireNonNull(getSupportActionBar()).setTitle("Lista de Medicamentos");
         usuarioBox = ((App) getApplication()).getBoxStore().boxFor(Usuario.class);
@@ -140,16 +144,25 @@ public class ListaMedicamentoActivity extends AppCompatActivity {
         ativarFab();
     }
 
+    //Repassa para o usuario selecionado uma notificação sobre o vinculo;
     public void criarVinculo(View view){
-        long idUsuarioTwo = Long.parseLong(information_id_usuario.getText().toString());
-        notificacaoBox.put(NotificacaoController.gerarNovoVinculo(usuario.getId(),idUsuarioTwo,usuario.getNome()));
+        String idUsuarioTwo = information_id_usuario.getText().toString();
+        List<Usuario> usuarioList = usuarioBox.getAll();
+        Notificacao notificacao = NotificacaoController.gerarNovoVinculo(usuarioList, usuario.getId(), idUsuarioTwo, usuario.getNome());
+        if (notificacao != null) {
+            notificacaoBox.put(notificacao);
+            Toast.makeText(this, "Pedido Enviado, aguarde a resposta", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Código de Usuario Inexistente", Toast.LENGTH_LONG).show();
+        }
     }
 
+    //Atualiza os dados da RecycleView
     private void reloadData(){
         MedicamentoAdapter adapter = new MedicamentoAdapter(this, medicamentoBox, logadoBox);
         recyclerViewMedicamentos.setAdapter(adapter);
         recyclerViewMedicamentos.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewMedicamentos.setHasFixedSize(true);
+        recyclerViewMedicamentos.setHasFixedSize(true);;
     }
 
     //Verifica se o Medicamento está na hora de ser utilizado, se tiver modifica o layout
@@ -191,12 +204,21 @@ public class ListaMedicamentoActivity extends AppCompatActivity {
         }
     }
 
+    //Pega o usuario da box que e usado pra inicalizar um atributo
     private void buscarUsuario(){
         List<Logado> logadoList = logadoBox.getAll();
         List<Usuario> usuarioList = usuarioBox.getAll();
         usuario = UsuarioController.buscarUsuarioId(usuarioList,logadoList);
     }
 
+    //Verifica se existe algum pedido de vinculo, se tiver exibi um menu de confirmação onde
+    //escolhe se quer aceitar o pedido
+    private void pedidoDeVinculo(){
+        BoxStore boxStore = ((App) getApplication()).getBoxStore();
+        NotificacaoController.answerVinculo(this, boxStore, usuario.getId());
+    }
+
+    //Atualiza a tela para exibir a lista
     private void listaSelected(){
         fabButtonConfirm.setVisibility(View.VISIBLE);
         recyclerViewMedicamentos.setVisibility(View.VISIBLE);
@@ -212,6 +234,8 @@ public class ListaMedicamentoActivity extends AppCompatActivity {
         ativarFab();
     }
 
+    //Atualiza a tela para exibir informações do usuario
+    @SuppressLint("SetTextI18n")
     private void usuarioSelected(){
         fabButton.setVisibility(View.GONE);
         fabButtonConfirm.setVisibility(View.GONE);
@@ -220,12 +244,21 @@ public class ListaMedicamentoActivity extends AppCompatActivity {
         informacao_ende.setVisibility(View.VISIBLE);
         informacao_tel.setVisibility(View.VISIBLE);
         informacao_id.setVisibility(View.VISIBLE);
-        information_txt_one.setVisibility(View.VISIBLE);
-        information_txt_two.setVisibility(View.VISIBLE);
-        informatio_id_confirm.setVisibility(View.VISIBLE);
-        information_id_usuario.setVisibility(View.VISIBLE);
+        Toast.makeText(this, ""+usuario.getIdUsuarioVinculado(), Toast.LENGTH_LONG).show();
+
+        if(usuario.getIdUsuarioVinculado()== 0){
+            information_txt_one.setVisibility(View.VISIBLE);
+            information_txt_two.setVisibility(View.VISIBLE);
+            informatio_id_confirm.setVisibility(View.VISIBLE);
+            information_id_usuario.setVisibility(View.VISIBLE);
+        }
+        else{
+            information_txt_one.setVisibility(View.VISIBLE);
+            information_txt_one.setText("Você está vinculado com o usuario de codigo" + usuario.getIdUsuarioVinculado());
+        }
     }
 
+    //Pega os campos e os preenche com os dados do usuario
     @SuppressLint("SetTextI18n")
     private void preencherCampos(){
         informacao_nome.setText("Nome: "+usuario.getNome());
