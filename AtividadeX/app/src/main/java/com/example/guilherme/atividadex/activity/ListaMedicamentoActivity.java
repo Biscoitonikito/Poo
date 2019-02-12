@@ -14,19 +14,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.guilherme.atividadex.R;
+import com.example.guilherme.atividadex.RVAdapter.ConsultaAdapter;
 import com.example.guilherme.atividadex.RVAdapter.MedicamentoAdapter;
+import com.example.guilherme.atividadex.controller.ConviteController;
 import com.example.guilherme.atividadex.controller.MedicamentoController;
 import com.example.guilherme.atividadex.controller.NotificacaoController;
 import com.example.guilherme.atividadex.controller.UsuarioController;
 import com.example.guilherme.atividadex.dal.App;
+import com.example.guilherme.atividadex.model.Consulta;
+import com.example.guilherme.atividadex.model.Convite;
 import com.example.guilherme.atividadex.model.Logado;
 import com.example.guilherme.atividadex.model.Medicamento;
-import com.example.guilherme.atividadex.model.Notificacao;
 import com.example.guilherme.atividadex.model.Usuario;
 
 import java.util.List;
@@ -43,7 +45,8 @@ public class ListaMedicamentoActivity extends AppCompatActivity {
     private Usuario usuario;
     private Box<Logado> logadoBox;
     private Box<Medicamento> medicamentoBox;
-    private Box<Notificacao> notificacaoBox;
+    private Box<Consulta> consultaBox;
+    private Box<Convite> notificacaoBox;
     BottomNavigationView navigation;
     private View fabButton;
     private View fabButtonConfirm;
@@ -70,19 +73,19 @@ public class ListaMedicamentoActivity extends AppCompatActivity {
         ativarFab();
         notificar();
         pedidoDeVinculo();
-        reloadData();
+        setRecyclerViewMedicamentos();
 
     }
 
     @Override
     protected  void onResume(){
         super.onResume();
-        reloadData();
+        setRecyclerViewMedicamentos();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_lista_medicamento, menu);
+        getMenuInflater().inflate(R.menu.menu_activty_medicamento, menu);
         return true;
     }
 
@@ -109,7 +112,7 @@ public class ListaMedicamentoActivity extends AppCompatActivity {
         usuarioBox = ((App) getApplication()).getBoxStore().boxFor(Usuario.class);
         logadoBox = ((App) getApplication()).getBoxStore().boxFor(Logado.class);
         medicamentoBox = ((App) getApplication()).getBoxStore().boxFor(Medicamento.class);
-        notificacaoBox = ((App) getApplication()).getBoxStore().boxFor(Notificacao.class);
+        notificacaoBox = ((App) getApplication()).getBoxStore().boxFor(Convite.class);
         recyclerViewMedicamentos = findViewById(R.id.recyclewView_principal);
         navigation = findViewById(R.id.navigation_list_medicamento);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -140,7 +143,7 @@ public class ListaMedicamentoActivity extends AppCompatActivity {
         List<Medicamento> newMedicamentoList = MedicamentoController.lembrarMedicamento(medicamentoList);
         medicamentoBox.removeAll();
         medicamentoBox.put(newMedicamentoList);
-        reloadData();
+        setRecyclerViewMedicamentos();
         ativarFab();
     }
 
@@ -148,17 +151,17 @@ public class ListaMedicamentoActivity extends AppCompatActivity {
     public void criarVinculo(View view){
         String idUsuarioTwo = information_id_usuario.getText().toString();
         List<Usuario> usuarioList = usuarioBox.getAll();
-        Notificacao notificacao = NotificacaoController.gerarNovoVinculo(usuarioList, usuario.getId(), idUsuarioTwo, usuario.getNome());
-        if (notificacao != null) {
-            notificacaoBox.put(notificacao);
+        Convite convite = ConviteController.gerarNovoVinculo(usuarioList, usuario.getId(), idUsuarioTwo, usuario.getNome());
+        if (convite != null) {
+            notificacaoBox.put(convite);
             Toast.makeText(this, "Pedido Enviado, aguarde a resposta", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "Código de Usuario Inexistente", Toast.LENGTH_LONG).show();
         }
     }
 
-    //Atualiza os dados da RecycleView
-    private void reloadData(){
+    //Atualiza os dados da RecycleView para exibir Medicamentos
+    private void setRecyclerViewMedicamentos(){
         MedicamentoAdapter adapter = new MedicamentoAdapter(this, medicamentoBox, logadoBox);
         recyclerViewMedicamentos.setAdapter(adapter);
         recyclerViewMedicamentos.setLayoutManager(new LinearLayoutManager(this));
@@ -215,10 +218,10 @@ public class ListaMedicamentoActivity extends AppCompatActivity {
     //escolhe se quer aceitar o pedido
     private void pedidoDeVinculo(){
         BoxStore boxStore = ((App) getApplication()).getBoxStore();
-        NotificacaoController.answerVinculo(this, boxStore, usuario.getId());
+       ConviteController.answerVinculo(this, boxStore, usuario.getId());
     }
 
-    //Atualiza a tela para exibir a lista
+    //Atualiza a tela para exibir a lista de medicamentos
     private void listaSelected(){
         fabButtonConfirm.setVisibility(View.VISIBLE);
         recyclerViewMedicamentos.setVisibility(View.VISIBLE);
@@ -230,7 +233,7 @@ public class ListaMedicamentoActivity extends AppCompatActivity {
         information_txt_two.setVisibility(View.GONE);
         informatio_id_confirm.setVisibility(View.GONE);
         information_id_usuario.setVisibility(View.GONE);
-        reloadData();
+        setRecyclerViewMedicamentos();
         ativarFab();
     }
 
@@ -244,7 +247,6 @@ public class ListaMedicamentoActivity extends AppCompatActivity {
         informacao_ende.setVisibility(View.VISIBLE);
         informacao_tel.setVisibility(View.VISIBLE);
         informacao_id.setVisibility(View.VISIBLE);
-        Toast.makeText(this, ""+usuario.getIdUsuarioVinculado(), Toast.LENGTH_LONG).show();
 
         if(usuario.getIdUsuarioVinculado()== 0){
             information_txt_one.setVisibility(View.VISIBLE);

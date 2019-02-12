@@ -40,6 +40,8 @@ public class MedicamentoController {
     }
 
     //Verifica se a algum campo vazio
+    //O codigo está em escada, mas é por motivos de que quando estava fazendo as comparações em uma linha so
+    //estava dando erro;
     private static boolean validarDados(String nome, String descricao, String validade, String periodo){
 
         if(!nome.isEmpty()){

@@ -1,10 +1,7 @@
 package com.example.guilherme.atividadex.controller;
 
-import android.content.Context;
-import android.widget.Toast;
-
+import com.example.guilherme.atividadex.model.Convite;
 import com.example.guilherme.atividadex.model.Logado;
-import com.example.guilherme.atividadex.model.Notificacao;
 import com.example.guilherme.atividadex.model.Usuario;
 
 import java.util.List;
@@ -112,13 +109,13 @@ public class UsuarioController {
     }
 
     //Vincula 2 usuarios setando o atributo deles de vinculado com o Id de cada
-    public  static List<Usuario> vincular(List<Usuario> usuarioList, Notificacao notificacao){
+    public  static List<Usuario> vincular(List<Usuario> usuarioList, Convite convite){
         for (int i = 0; i < usuarioList.size(); i++) {
-            if (usuarioList.get(i).getId() == notificacao.getIdUsuarioOne()) {
-                    usuarioList.get(i).setIdUsuarioVinculado(notificacao.getIdUsuarioTwo());
+            if (usuarioList.get(i).getId() == convite.getIdUsuarioOne()) {
+                    usuarioList.get(i).setIdUsuarioVinculado(convite.getIdUsuarioTwo());
             }
-            if (usuarioList.get(i).getId() == notificacao.getIdUsuarioTwo()) {
-                    usuarioList.get(i).setIdUsuarioVinculado(notificacao.getIdUsuarioOne());
+            if (usuarioList.get(i).getId() == convite.getIdUsuarioTwo()) {
+                    usuarioList.get(i).setIdUsuarioVinculado(convite.getIdUsuarioOne());
             }
         }
         return usuarioList;

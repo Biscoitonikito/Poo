@@ -52,7 +52,7 @@
             android:id="@+id/novo_medicamento_descricao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/descri_o"
+            android:hint="@string/descricao"
             android:inputType="text" />
     </android.support.design.widget.TextInputLayout>
 

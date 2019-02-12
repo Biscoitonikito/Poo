@@ -7,11 +7,20 @@
     <string name="cadastrar">Cadastrar</string>
     <string name="entrar">Entrar</string>
     <string name="nome">Nome</string>
-    <string name="descri_o">Descrição</string>
+    <string name="descricao">Descrição</string>
     <string name="validade">Validade</string>
     <string name="intervalo_do_medicamento">Intervalo do Medicamento</string>
     <string name="salvar_medicamento">Salvar Medicamento</string>
     <string name="confirme_a_senha">Confirme a Senha</string>
-    <string name="endere_o">Endereço</string>
+    <string name="endereco">Endereço</string>
     <string name="telefone">Telefone</string>
+    <string name="medicamentos">Medicamentos</string>
+    <string name="consultas">Consultas</string>
+    <string name="usuario">Usuário</string>
+    <string name="remover">Remover</string>
+    <string name="sair">Sair</string>
+    <string name="codigo_adicionar">Para adicionar um usuário supervisor, digite o Código dele.</string>
+    <string name="codigo_do_usuario">Código do Usuário</string>
+    <string name="aviso_usuario">Caso ele já tenha alguém por quem seja responsável não será possivel concluir a ação.</string>
+    <string name="confirma_usu_rio">Confirma Usuário</string>
 </resources>

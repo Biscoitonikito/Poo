@@ -1,11 +1,9 @@
 package com.example.guilherme.atividadex.activity;
 
-import android.widget.Toast;
-
 import com.example.guilherme.atividadex.controller.UsuarioController;
+import com.example.guilherme.atividadex.model.Convite;
 import com.example.guilherme.atividadex.model.Logado;
 import com.example.guilherme.atividadex.model.Medicamento;
-import com.example.guilherme.atividadex.model.Notificacao;
 import com.example.guilherme.atividadex.model.Usuario;
 
 import java.util.ArrayList;
@@ -19,7 +17,7 @@ public class MainActivity {
         List<Usuario> usuarioList = new ArrayList<>();
         List<Medicamento> medicamentoList = new ArrayList<>();
         List<Logado> logadoList = new ArrayList<>();
-        List<Notificacao> notificacaoList = new ArrayList<>();
+        List<Convite> conviteList = new ArrayList<>();
 
         //Metodos para cadastrar genericos, funcionam mesmo sem bd, so passando os dados;
         //Só necessitam de uma lista para guarda o retorno que e o usuari craido
