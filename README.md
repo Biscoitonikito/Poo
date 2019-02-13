@@ -7,8 +7,8 @@ Nome do App: Monitor de Medicamento.
 
 ### História por trás do aplicativo
 
-<p>Aplicativo tem como objetivo fornecer ao usuário um sistema de monitoramento de medicamentos, para evitar complicações causadas por esquecer o aplicativo tambem contaria com um sistema de anotar consultas, mas não chegou a ser implemetada devidamente.
-algum deles, tem como principal foco pessoas com idades avançadas que possuem um memória um pouco mais fraca.</p>
+<p>Aplicativo tem como objetivo fornecer ao usuário um sistema de monitoramento de medicamentos, para evitar complicações causadas por esquecer algum deles, tem como principal foco pessoas com idades avançadas que possuem um memória um pouco mais fraca.O aplicativo também teria com um sistema de anotar consultas, mas não chegou a ser implemetada devidamente.</p>
+
 <p>Para evitar que os usuários não tomem sua medicação o aplicativo conta com um sistema de vínculo entre usuários,
 formando sistema de duplas dentro do aplicativo, cada um sendo um monitor do outro, também podendo ser utilizado apenas por 
 um deles para monitorar, já que existe muitos casos de famílias ter familiares idosos do qual não muitas vezes moram longe ou 
